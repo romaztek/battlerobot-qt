@@ -13,6 +13,7 @@
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QBluetoothUuid>
 
+#include <QGamepad>
 #include <QGamepadManager>
 
 #include <QStringList>
@@ -20,6 +21,10 @@
 #ifdef Q_OS_ANDROID
 #include <QAndroidJniObject>
 #include <QAndroidJniEnvironment>
+#endif
+
+#ifdef Q_OS_LINUX
+#include <QProcess>
 #endif
 
 class Logic : public QObject

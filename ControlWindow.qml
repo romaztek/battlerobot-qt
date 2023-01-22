@@ -12,6 +12,7 @@ Rectangle {
     anchors.fill: parent
     visible: false
     enabled: false
+    focus: true
 
     Gamepad {
         id: gamepad
@@ -19,7 +20,8 @@ Rectangle {
 
         onConnectedChanged: {
             if(connected) {
-                currentGamepadText.text = qsTr("Connected")
+                var gamePadName = logic.getGamepadName(gamepad.deviceId)
+                currentGamepadText.text = gamePadName.length === 0 ?  qsTr("Connected") : gamePadName
             } else {
                 currentGamepadText.text = qsTr("Not Connected")
             }
@@ -29,8 +31,10 @@ Rectangle {
             if(buttonLeft) {
                 if(!moveButtonRight.isPressed && (axisLeftX >= -0.3 && axisLeftX <= 0.3))
                     moveButtonLeft.pressed()
+                console.log("Left button pressed")
             } else {
                 moveButtonLeft.released()
+                console.log("Left button released")
             }
         }
 
@@ -83,6 +87,7 @@ Rectangle {
         onGamepadConnected: {
             gamepad.deviceId = deviceId
         }
+
     }
 
     function show() {

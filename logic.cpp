@@ -15,7 +15,7 @@ Logic::Logic(QObject *parent) : QObject(parent)
     discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
 
     connect(discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
-        this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
+            this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
 
     // Start a discovery
     discoveryAgent->start(QBluetoothDeviceDiscoveryAgent::ClassicMethod);
@@ -93,7 +93,7 @@ QStringList Logic::getBluetoothDevices()
     QProcess command;
     command.start("bt-device -l");
     command.waitForFinished(3000);
-    if (command.error()==QProcess::FailedToStart) {
+    if (command.error() == QProcess::FailedToStart) {
         qWarning("Cannot execute the command 'bt-device': %s",qPrintable(command.errorString()));
     }
     else {
@@ -101,7 +101,7 @@ QStringList Logic::getBluetoothDevices()
         QByteArray output=command.readAllStandardOutput();
         QRegExp regexp("(.*) \\((.*)\\)");
         foreach(QByteArray line, output.split('\n')) {
-            if (regexp.indexIn(line)>=0) {
+            if (regexp.indexIn(line) >= 0) {
                 result.append(fmt.arg(regexp.cap(2)).arg(regexp.cap(1)));
             }
         }
@@ -138,7 +138,7 @@ void Logic::connectToDevice(QString address)
     connect(socket, &QBluetoothSocket::disconnected, this, &Logic::deviceDisconnected);
 
     connect(socket, QOverload<QBluetoothSocket::SocketError>::of(&QBluetoothSocket::error),
-          [=](QBluetoothSocket::SocketError error){
+            [=](QBluetoothSocket::SocketError error){
         switch (error) {
         case QBluetoothSocket::UnknownSocketError:
             emit deviceError(tr("Unknown Error"));
@@ -180,9 +180,10 @@ void Logic::send(QString text)
 
 QString Logic::getGamepadName(QVariant deviceId)
 {
-//    QList<int> gamepadIDs = QGamepadManager::instance()->connectedGamepads();
-//    qDebug().noquote() << "gamepad ID:" << gamepadIDs.at(0);
-//    qDebug().noquote() << "gamepad name:" << QGamepadManager::instance()->gamepadName(gamepadIDs.at(0));
+    //    QList<int> gamepadIDs = QGamepadManager::instance()->connectedGamepads();
+    //    qDebug().noquote() << "gamepad ID:" << gamepadIDs.at(0);
+
+    qDebug().noquote() << "gamepad name:" << QGamepadManager::instance()->gamepadName(deviceId.toInt());
     return QGamepadManager::instance()->gamepadName(deviceId.toInt());
 }
 

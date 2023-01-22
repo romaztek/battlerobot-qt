@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_WINDOWS
     if (translator.load(QLocale(), QLatin1String("TestBt"), QLatin1String("_"), QLatin1String(":/i18n")))
         QCoreApplication::installTranslator(&translator);
-#elif defined Q_OS_ANDROID
+#elif defined Q_OS_ANDROID || defined Q_OS_LINUX
     if(QLocale::system().name() == "ru_RU") {
         qDebug().noquote() << "Locale:" << QLocale::system().name();
         if(translator.load(QString("TestBt_ru_RU"), QString(":/i18n"))) {
@@ -64,10 +64,6 @@ int main(int argc, char *argv[])
         else
             qDebug().noquote() << "Cannot load translation for:" << "ru_RU";
     }
-//    if (translator.load(QLocale::system().name(), QLatin1String("TestBt"), QLatin1String("_"), QLatin1String("qrc:/i18n/")))
-//        QCoreApplication::installTranslator(&translator);
-//    else
-//        qDebug().noquote() << "Cannot load translation for:" << QLocale::system().name();
 #endif
     qmlRegisterType<Logic>("ru.romanlenz.logic", 1, 0, "Logic");
 
