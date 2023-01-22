@@ -75,7 +75,7 @@ Item {
             anchors.top: parent.top
             anchors.right: parent.right
             text: qsTr("Skip")
-            imageSource: "qrc:/img/debug_icon.png"
+            imageSource: "qrc:/images/debug_icon.png"
             fontSize: 12
 
             onClicked: {
@@ -108,7 +108,7 @@ Item {
                     width: 40
                     height: 40
                     fillMode: Image.PreserveAspectFit
-                    source: "qrc:/img/bt_icon.png"
+                    source: "qrc:/images/bt_icon.png"
                     x: 5
                     y: 5
                 }
@@ -177,7 +177,7 @@ Item {
             height: 40
             x: 5
             y: 5
-            source: "qrc:/img/bt_icon.png"
+            source: "qrc:/images/bt_icon.png"
         }
 
         SequentialAnimation {
@@ -227,7 +227,7 @@ Item {
             width: cw.width/2 - 10
             height: 50
             text: qsTr("Refresh")
-            imageSource: "qrc:/img/refresh_icon.png"
+            imageSource: "qrc:/images/refresh_icon.png"
             fontSize: 12
 
             onClicked: {
@@ -255,7 +255,7 @@ Item {
             id: bottomButtonConnect
             width: cw.width/2 - 10
             text: qsTr("Connect")
-            imageSource: "qrc:/img/connect_icon.png"
+            imageSource: "qrc:/images/connect_icon.png"
             fontSize: 12
 
             onClicked: {
@@ -378,7 +378,7 @@ Item {
                 id: connectErrorWindowErrorSign
                 Layout.preferredWidth: 50
                 Layout.preferredHeight: 50
-                source: "qrc:/img/error_icon.png"
+                source: "qrc:/images/error_icon.png"
             }
             Item {
                 id: errorTxt
@@ -399,7 +399,7 @@ Item {
                 Layout.preferredHeight: 50
                 Layout.columnSpan: 2
                 text: qsTr("Close")
-                imageSource: "qrc:/img/close_icon.png"
+                imageSource: "qrc:/images/close_icon.png"
                 onClicked: hideErrorWindow()
             }
         }

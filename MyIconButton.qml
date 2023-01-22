@@ -29,7 +29,7 @@ Rectangle {
             y: 5
             width: noImage ? 0 : iconButton.height - 10
             height: noImage ? 0 : iconButton.height - 10
-            source: "qrc:/img/bt_icon.png"
+            source: "qrc:/images/bt_icon.png"
             fillMode: Image.PreserveAspectFit
             mipmap: true
         }

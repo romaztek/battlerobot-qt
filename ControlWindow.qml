@@ -137,7 +137,7 @@ Rectangle {
                     Layout.maximumWidth: 40
                     Layout.maximumHeight: 40
                     Layout.margins: 5
-                    source: "qrc:/img/bt_icon.png"
+                    source: "qrc:/images/bt_icon.png"
                     fillMode: Image.PreserveAspectFit
                     mipmap: true
                 }
@@ -169,7 +169,7 @@ Rectangle {
                     Layout.maximumWidth: 40
                     Layout.maximumHeight: 40
                     Layout.margins: 5
-                    source: "qrc:/img/gamepad_icon.png"
+                    source: "qrc:/images/gamepad_icon.png"
                     fillMode: Image.PreserveAspectFit
                     mipmap: true
                 }

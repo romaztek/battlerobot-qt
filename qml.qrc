@@ -11,16 +11,16 @@
     <qresource prefix="/i18n">
         <file>TestBt_ru_RU.qm</file>
     </qresource>
-    <qresource prefix="/img">
-        <file>robot_head.png</file>
-        <file>bt_icon.png</file>
-        <file>refresh_icon.png</file>
-        <file>connect_icon.png</file>
-        <file>error_icon.png</file>
-        <file>close_icon.png</file>
-        <file>stop_icon.png</file>
-        <file>robot_icon.png</file>
-        <file>gamepad_icon.png</file>
-        <file>debug_icon.png</file>
+    <qresource prefix="/images">
+        <file alias="robot_head.png">images/robot_head.png</file>
+        <file alias="bt_icon.png">images/bt_icon.png</file>
+        <file alias="refresh_icon.png">images/refresh_icon.png</file>
+        <file alias="connect_icon.png">images/connect_icon.png</file>
+        <file alias="error_icon.png">images/error_icon.png</file>
+        <file alias="close_icon.png">images/close_icon.png</file>
+        <file alias="stop_icon.png">images/stop_icon.png</file>
+        <file alias="robot_icon.png">images/robot_icon.png</file>
+        <file alias="gamepad_icon.png">images/gamepad_icon.png</file>
+        <file alias="debug_icon.png">images/debug_icon.png</file>
     </qresource>
 </RCC>
