@@ -38,6 +38,15 @@ SOURCES = main.qml \
 	  MyIconButton.qml
 }
 
+CONFIG(debug, debug|release) {
+    CONFIG += qml_debug
+    message("Debug")
+}
+CONFIG(release, debug|release) {
+    CONFIG -= qml_debug
+    message("Release")
+}
+
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
