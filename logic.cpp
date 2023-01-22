@@ -8,7 +8,7 @@ Logic::Logic(QObject *parent) : QObject(parent)
     /*QStringList devices = getBluetoothDevices();
     qDebug().noquote() << devices;*/
 
-#ifdef Q_OS_WINDOWS
+#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
     QBluetoothLocalDevice localDevice;
     QString localDeviceName;
 
@@ -45,8 +45,7 @@ qreal Logic::getDensity() {
 
 void Logic::getDeviceList()
 {
-
-#ifdef Q_OS_WINDOWS
+#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
     if(discoveryAgent != nullptr)
         discoveryAgent->stop();
 #endif
@@ -90,24 +89,25 @@ QStringList Logic::getBluetoothDevices()
 
 #elif defined Q_OS_LINUX
     // Query via the Linux command bt-device.
-    QProcess command;
-    command.start("bt-device -l");
-    command.waitForFinished(3000);
-    if (command.error() == QProcess::FailedToStart) {
-        qWarning("Cannot execute the command 'bt-device': %s",qPrintable(command.errorString()));
-    }
-    else {
-        // Parse the output, example: HC-06 (20:13:11:15:16:08)
-        QByteArray output=command.readAllStandardOutput();
-        QRegExp regexp("(.*) \\((.*)\\)");
-        foreach(QByteArray line, output.split('\n')) {
-            if (regexp.indexIn(line) >= 0) {
-                result.append(fmt.arg(regexp.cap(2)).arg(regexp.cap(1)));
-            }
-        }
-    }
+//    QProcess command;
+//    command.start("bt-device -l");
+//    command.waitForFinished(3000);
+//    if (command.error() == QProcess::FailedToStart) {
+//        qWarning("Cannot execute the command 'bt-device': %s",qPrintable(command.errorString()));
+//    }
+//    else {
+//        // Parse the output, example: HC-06 (20:13:11:15:16:08)
+//        QByteArray output=command.readAllStandardOutput();
+//        QRegExp regexp("(.*) \\((.*)\\)");
+//        foreach(QByteArray line, output.split('\n')) {
+//            if (regexp.indexIn(line) >= 0) {
+//                result.append(fmt.arg(regexp.cap(2)).arg(regexp.cap(1)));
+//            }
+//        }
+//    }
+#endif
 
-#elif defined Q_OS_WINDOWS
+#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
     result = devices;
     //emit deviceConnected();
 #endif
@@ -117,7 +117,7 @@ QStringList Logic::getBluetoothDevices()
 
 void Logic::connectToDevice(QString address)
 {
-#ifdef Q_OS_WINDOWS
+#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
     discoveryAgent->stop();
 #endif
 
