@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ControlWindow.qml</file>
+        <file>ConnectWindow.qml</file>
+        <file>MyIconButton.qml</file>
+        <file>Line.qml</file>
+        <file>LoadingCircleIndicator.qml</file>
+        <file>MoveButton.qml</file>
+    </qresource>
+    <qresource prefix="/i18n">
+        <file>TestBt_ru_RU.qm</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>robot_head.png</file>
+        <file>bt_icon.png</file>
+        <file>refresh_icon.png</file>
+        <file>connect_icon.png</file>
+        <file>error_icon.png</file>
+        <file>close_icon.png</file>
+        <file>stop_icon.png</file>
+        <file>robot_icon.png</file>
+        <file>gamepad_icon.png</file>
+        <file>debug_icon.png</file>
+    </qresource>
+</RCC>
