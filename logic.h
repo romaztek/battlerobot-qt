@@ -6,6 +6,7 @@
 #include <QList>
 #include <QScreen>
 #include <QGuiApplication>
+#include <QTouchDevice>
 
 #include <QBluetoothAddress>
 #include <QBluetoothSocket>
@@ -45,6 +46,7 @@ public:
     Q_INVOKABLE void send(QString text);
 
     Q_INVOKABLE QString getGamepadName(QVariant deviceId);
+    Q_INVOKABLE bool hasTouchScreen();
 
 #ifdef Q_OS_ANDROID
     bool checkException(const char* method, const QAndroidJniObject* obj);

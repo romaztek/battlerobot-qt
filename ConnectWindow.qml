@@ -5,9 +5,10 @@ import QtQuick.Shapes 1.12
 
 import ru.romanlenz.logic 1.0
 
-Item {
+Rectangle {
     id: cw
     anchors.fill: parent
+    color: backgroundColor
 
     property string connectedDeviceName
     property alias connectedErrorString: errorText.text
@@ -52,31 +53,25 @@ Item {
         btListModel.append({"name": device_name, "address": device_address })
     }
 
-    Rectangle {
+    MyIconLabel {
         id: topText
         height: 50
-        radius: height/4
-        border.width: 2
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.margins: 5
 
-        Label {
-            anchors.centerIn: parent
-            text: qsTr("Select a device")
-            font.pointSize: 12
-        }
+        image: "qrc:/images/bt_icon.png"
+        text: qsTr("Select a device")
 
         MyIconButton {
             id: topButtonSkip
-            width: cw.width/4 - 10
+            width: cw.width/4
             height: parent.height
             anchors.top: parent.top
             anchors.right: parent.right
             text: qsTr("Skip")
             imageSource: "qrc:/images/debug_icon.png"
-            fontSize: 12
 
             onClicked: {
                 controlWindow.show()
@@ -136,7 +131,7 @@ Item {
             width: parent.width
             height: 50
             radius: height/4
-            color: "lime"
+            color: highlightColor
             border.width: 2
             border.color: "transparent"
         }
@@ -228,7 +223,6 @@ Item {
             height: 50
             text: qsTr("Refresh")
             imageSource: "qrc:/images/refresh_icon.png"
-            fontSize: 12
 
             onClicked: {
                 btListModel.clear()
@@ -256,7 +250,6 @@ Item {
             width: cw.width/2 - 10
             text: qsTr("Connect")
             imageSource: "qrc:/images/connect_icon.png"
-            fontSize: 12
 
             onClicked: {
                 if(btListModel.get(btList.currentIndex))

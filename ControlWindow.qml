@@ -14,6 +14,36 @@ Rectangle {
     enabled: false
     focus: true
 
+    color: backgroundColor
+
+    enum ControlType {
+        None,
+        Touch,
+        Gamepad
+    }
+
+    Component.onCompleted: {
+        if(logic.hasTouchScreen()) {
+            currentControlType = ControlWindow.ControlType.Touch
+            currentTouchTop.radioButton.checked = true
+        }
+    }
+
+    property double deadzoneValue: 0.15
+    property int currentControlType: ControlWindow.ControlType.None
+
+    onCurrentControlTypeChanged: {
+        if(moveButtonLeft.isPressed) {
+            moveButtonLeft.released()
+        } else if(moveButtonRight.isPressed) {
+            moveButtonRight.released()
+        } else if(moveButtonForward.isPressed) {
+            moveButtonForward.released()
+        } else if(moveButtonBackward.isPressed) {
+            moveButtonBackward.released()
+        }
+    }
+
     Gamepad {
         id: gamepad
         deviceId: GamepadManager.connectedGamepads.length > 0 ? GamepadManager.connectedGamepads[0] : -1
@@ -21,36 +51,49 @@ Rectangle {
         onConnectedChanged: {
             if(connected) {
                 var gamePadName = logic.getGamepadName(gamepad.deviceId)
-                currentGamepadText.text = gamePadName.length === 0 ?  qsTr("Connected") : gamePadName
+                currentGamepadTop.text = gamePadName.length === 0 ?  qsTr("Connected") : gamePadName
+                currentControlType = ControlWindow.ControlType.Gamepad
+                currentGamepadTop.enabled = true
             } else {
-                currentGamepadText.text = qsTr("Not Connected")
+                currentGamepadTop.text = qsTr("Not Connected")
+                logic.send(stopCommand)
+                if(currentControlType === ControlWindow.ControlType.Gamepad) {
+                    if(hasTouchScreen)
+                        currentControlType = ControlWindow.ControlType.Touch
+                    else
+                        currentControlType = ControlWindow.ControlType.None
+                    currentGamepadTop.enabled = false
+                    currentGamepadTop.radioButton.checked = false
+                }
             }
         }
 
         onButtonLeftChanged: {
+            if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonLeft) {
-                if(!moveButtonRight.isPressed && (axisLeftX >= -0.3 && axisLeftX <= 0.3))
+                if(!moveButtonRight.isPressed && (axisLeftX >= -deadzoneValue && axisLeftX <= deadzoneValue))
                     moveButtonLeft.pressed()
-                console.log("Left button pressed")
             } else {
                 moveButtonLeft.released()
-                console.log("Left button released")
             }
         }
 
         onButtonRightChanged: {
+            if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonRight) {
-                if(!moveButtonLeft.isPressed && (axisLeftX >= -0.3 && axisLeftX <= 0.3))
-                moveButtonRight.pressed()
+                if(!moveButtonLeft.isPressed && (axisLeftX >= -deadzoneValue && axisLeftX <= deadzoneValue))
+                    moveButtonRight.pressed()
             } else {
                 moveButtonRight.released()
             }
         }
 
         onButtonR2Changed: {
+            if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonR2) {
                 if(buttonL2)
                     moveButtonBackward.released()
+                if(moveButtonForward.isPressed) return
                 moveButtonForward.pressed()
             } else {
                 moveButtonForward.released()
@@ -58,9 +101,11 @@ Rectangle {
         }
 
         onButtonL2Changed: {
+            if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonL2) {
                 if(buttonR2)
                     moveButtonForward.released()
+                if(moveButtonBackward.isPressed) return
                 moveButtonBackward.pressed()
             } else {
                 moveButtonBackward.released()
@@ -68,11 +113,11 @@ Rectangle {
         }
 
         onAxisLeftXChanged: {
-            console.log(axisLeftX)
-            if(axisLeftX < -0.3) {
+            if(currentControlType !== ControlWindow.ControlType.Gamepad) return
+            if(axisLeftX < -deadzoneValue) {
                 if(!moveButtonRight.isPressed && !buttonLeft)
                     moveButtonLeft.pressed()
-            } else if(axisLeftX > 0.3) {
+            } else if(axisLeftX > deadzoneValue) {
                 if(!moveButtonLeft.isPressed && !buttonRight)
                     moveButtonRight.pressed()
             } else {
@@ -87,7 +132,6 @@ Rectangle {
         onGamepadConnected: {
             gamepad.deviceId = deviceId
         }
-
     }
 
     function show() {
@@ -101,89 +145,63 @@ Rectangle {
     }
 
     function setDeviceName(str) {
-        currentDeviceText.text = str
+        currentDeviceTop.text = str
     }
 
     function stopMovement() {
-        logic.send("5")
+        logic.send(stopCommand)
         console.log(qsTr("STOP"))
     }
 
-    Item {
+    ButtonGroup {
+        id: controlButtonsGroup
+        buttons: [
+            currentGamepadTop.radioButton,
+            currentTouchTop.radioButton
+        ]
+    }
+
+    RowLayout {
         id: topMenu
         anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 5
-        anchors.bottomMargin: 5
-        width: parent.width
-
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 5
         height: 50
+        spacing: 5
 
-        Rectangle {
+        MyIconLabel {
             id: currentDeviceTop
-            width: parent.width/2 - 7.5
-            height: 50
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            border.width: 2
-            border.color: "black"
-            radius: height/4
-
-            RowLayout {
-                spacing: 5
-                anchors.fill: parent
-                Image {
-                    id: robotHeadIcon
-                    Layout.maximumWidth: 40
-                    Layout.maximumHeight: 40
-                    Layout.margins: 5
-                    source: "qrc:/images/bt_icon.png"
-                    fillMode: Image.PreserveAspectFit
-                    mipmap: true
-                }
-                Text {
-                    id: currentDeviceText
-                    font.pointSize: 11
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    verticalAlignment: Text.AlignVCenter
-                    text: qsTr("NULL")
-                }
-            }
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: labelBackgroundColor
+            image: "qrc:/images/bt_icon.png"
+            text: qsTr("NULL")
         }
-        Rectangle {
+        MyIconRadioButtonLabel {
             id: currentGamepadTop
-            width: parent.width/2 - 7.5
-            height: 50
-            anchors.left: currentDeviceTop.right
-            anchors.leftMargin: 5
-            border.width: 2
-            border.color: "black"
-            radius: height/4
-
-            RowLayout {
-                spacing: 5
-                anchors.fill: parent
-                Image {
-                    id: gamepadIcon
-                    Layout.maximumWidth: 40
-                    Layout.maximumHeight: 40
-                    Layout.margins: 5
-                    source: "qrc:/images/gamepad_icon.png"
-                    fillMode: Image.PreserveAspectFit
-                    mipmap: true
-                }
-                Text {
-                    id: currentGamepadText
-                    font.pointSize: 11
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    verticalAlignment: Text.AlignVCenter
-                    text: qsTr("Not Connected")
-                }
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: labelBackgroundColor
+            image: "qrc:/images/gamepad_icon.png"
+            text: qsTr("Not Connected")
+            enabled: false
+            radioButton.onCheckedChanged: {
+                currentControlType = ControlWindow.ControlType.Gamepad
             }
         }
-
+        MyIconRadioButtonLabel {
+            id: currentTouchTop
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: labelBackgroundColor
+            image: "qrc:/images/touch_icon.png"
+            text: hasTouchScreen ? qsTr("Have") : qsTr("Dont have")
+            enabled: hasTouchScreen
+            radioButton.onCheckedChanged: {
+                currentControlType = ControlWindow.ControlType.Touch
+            }
+        }
     }
 
     Item {
@@ -208,11 +226,13 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: qsTr("LEFT")
+                image: "qrc:/images/car_icon.png"
                 onPressed: {
                     logic.send("4")
                     console.log(qsTr("LEFT"))
                 }
                 onReleased: {
+                    if(moveButtonForward.isPressed || moveButtonBackward.isPressed) return
                     stopMovement()
                 }
             }
@@ -222,11 +242,14 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: qsTr("RIGHT")
+                image: "qrc:/images/car_icon.png"
+                mirror: true
                 onPressed: {
-                    logic.send("6")
+                    logic.send(rightCommand)
                     console.log(qsTr("RIGHT"))
                 }
                 onReleased: {
+                    if(moveButtonForward.isPressed || moveButtonBackward.isPressed) return
                     stopMovement()
                 }
             }
@@ -241,8 +264,9 @@ Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     text: qsTr("FORWARD")
+                    image: "qrc:/images/gaz_icon.png"
                     onPressed: {
-                        logic.send("8")
+                        logic.send(forwardCommand)
                         console.log(qsTr("FORWARD"))
                     }
                     onReleased: {
@@ -254,8 +278,10 @@ Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     text: qsTr("BACKWARD")
+                    image: "qrc:/images/gaz_icon.png"
+                    rotation: 180
                     onPressed: {
-                        logic.send("2")
+                        logic.send(backwardCommand)
                         console.log(qsTr("BACKWARD"))
                     }
                     onReleased: {

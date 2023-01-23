@@ -8,42 +8,42 @@
         <translation type="vanished">Выберите устройство:</translation>
     </message>
     <message>
-        <location filename="ConnectWindow.qml" line="67"/>
+        <location filename="ConnectWindow.qml" line="65"/>
         <source>Select a device</source>
         <translation>Выберите устройство</translation>
     </message>
     <message>
-        <location filename="ConnectWindow.qml" line="77"/>
+        <location filename="ConnectWindow.qml" line="73"/>
         <source>Skip</source>
         <translation>Пропустить</translation>
     </message>
     <message>
-        <location filename="ConnectWindow.qml" line="208"/>
+        <location filename="ConnectWindow.qml" line="203"/>
         <source>Scanning...</source>
         <translation>Идет поиск устройств...</translation>
     </message>
     <message>
-        <location filename="ConnectWindow.qml" line="229"/>
+        <location filename="ConnectWindow.qml" line="224"/>
         <source>Refresh</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="ConnectWindow.qml" line="257"/>
+        <location filename="ConnectWindow.qml" line="251"/>
         <source>Connect</source>
         <translation>Подключить</translation>
     </message>
     <message>
-        <location filename="ConnectWindow.qml" line="326"/>
+        <location filename="ConnectWindow.qml" line="319"/>
         <source>Connecting to</source>
         <translation>Подключение к</translation>
     </message>
     <message>
-        <location filename="ConnectWindow.qml" line="391"/>
+        <location filename="ConnectWindow.qml" line="384"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="ConnectWindow.qml" line="401"/>
+        <location filename="ConnectWindow.qml" line="394"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
@@ -103,47 +103,57 @@
         <translation type="vanished">Езда и Плеер</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="22"/>
+        <location filename="ControlWindow.qml" line="26"/>
         <source>Connected</source>
         <translation>Подключен</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="24"/>
-        <location filename="ControlWindow.qml" line="177"/>
+        <location filename="ControlWindow.qml" line="28"/>
+        <location filename="ControlWindow.qml" line="137"/>
         <source>Not Connected</source>
         <translation>Не Подключен</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="104"/>
+        <location filename="ControlWindow.qml" line="111"/>
         <source>STOP</source>
         <translation>СТОП</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="145"/>
+        <location filename="ControlWindow.qml" line="129"/>
         <source>NULL</source>
         <translation>Отсутствует</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="205"/>
-        <location filename="ControlWindow.qml" line="208"/>
+        <location filename="ControlWindow.qml" line="145"/>
+        <source>Have</source>
+        <translation>Есть</translation>
+    </message>
+    <message>
+        <location filename="ControlWindow.qml" line="145"/>
+        <source>Dont have</source>
+        <translation type="unfinished">Не Доступно</translation>
+    </message>
+    <message>
+        <location filename="ControlWindow.qml" line="259"/>
+        <location filename="ControlWindow.qml" line="263"/>
         <source>LEFT</source>
         <translation>ВЛЕВО</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="219"/>
-        <location filename="ControlWindow.qml" line="222"/>
+        <location filename="ControlWindow.qml" line="274"/>
+        <location filename="ControlWindow.qml" line="279"/>
         <source>RIGHT</source>
         <translation>ВПРАВО</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="238"/>
-        <location filename="ControlWindow.qml" line="241"/>
+        <location filename="ControlWindow.qml" line="295"/>
+        <location filename="ControlWindow.qml" line="299"/>
         <source>FORWARD</source>
         <translation>ВПЕРЕД</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="251"/>
-        <location filename="ControlWindow.qml" line="254"/>
+        <location filename="ControlWindow.qml" line="309"/>
+        <location filename="ControlWindow.qml" line="314"/>
         <source>BACKWARD</source>
         <translation>НАЗАД</translation>
     </message>
@@ -181,6 +191,14 @@
     <message>
         <source>No Socket Error</source>
         <translation type="vanished">Ошибок нет (тест)</translation>
+    </message>
+</context>
+<context>
+    <name>MyIconLabel</name>
+    <message>
+        <location filename="MyIconLabel.qml" line="32"/>
+        <source>NULL</source>
+        <translation type="unfinished">Отсутствует</translation>
     </message>
 </context>
 <context>

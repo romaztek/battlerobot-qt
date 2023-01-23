@@ -35,7 +35,9 @@ SOURCES = main.qml \
 	  Line.qml \
 	  LoadingCircleIndicator.qml \
 	  MoveButton.qml \
-	  MyIconButton.qml
+          MyIconButton.qml \
+          MyIconLabel.qml \
+          MyIconRadioButtonLabel.qml
 }
 
 CONFIG(debug, debug|release) {

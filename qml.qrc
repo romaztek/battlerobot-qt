@@ -7,6 +7,8 @@
         <file>Line.qml</file>
         <file>LoadingCircleIndicator.qml</file>
         <file>MoveButton.qml</file>
+        <file>MyIconLabel.qml</file>
+        <file>MyIconRadioButtonLabel.qml</file>
     </qresource>
     <qresource prefix="/i18n">
         <file>TestBt_ru_RU.qm</file>
@@ -22,5 +24,9 @@
         <file alias="robot_icon.png">images/robot_icon.png</file>
         <file alias="gamepad_icon.png">images/gamepad_icon.png</file>
         <file alias="debug_icon.png">images/debug_icon.png</file>
+        <file alias="brake_icon.png">images/brake_icon.png</file>
+        <file alias="car_icon.png">images/car_icon.png</file>
+        <file alias="gaz_icon.png">images/gaz_icon.png</file>
+        <file alias="touch_icon.png">images/touch_icon.png</file>
     </qresource>
 </RCC>

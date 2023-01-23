@@ -1,11 +1,11 @@
 ﻿import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
 
 Rectangle {
     id: iconButton
-    width: 50
     height: 50
-    color: _ma.pressed ? "#d6d6d6" : "#f6f6f6"
+    color: _ma.pressed ? highlightColor : defaultColor
     border.color: "#26282a"
     border.width: 2
     radius: height/4
@@ -21,26 +21,27 @@ Rectangle {
     signal released()
     signal pressAndHold()
 
-    Item {
-        x: centerAlignment ? (iconButton.width - (_img.width + _txt.width + 10))/2 : 0
+    RowLayout {
+        id: mainLayout
+        spacing: 5
+        anchors.margins: 5
+        anchors.fill: parent
         Image {
             id: _img
-            x: 5
-            y: 5
-            width: noImage ? 0 : iconButton.height - 10
-            height: noImage ? 0 : iconButton.height - 10
+            Layout.maximumWidth: noImage ? 0 : iconButton.height - 10
+            Layout.maximumHeight: noImage ? 0 : iconButton.height - 10
             source: "qrc:/images/bt_icon.png"
             fillMode: Image.PreserveAspectFit
             mipmap: true
         }
         Text {
             id: _txt
-            font.pointSize: 12
+            font.pointSize: 14
             text: ""
-            anchors.left: _img.right
-            anchors.margins: 5
-            x: (iconButton.width - contentWidth)/2
-            y: (iconButton.height - contentHeight)/2
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            verticalAlignment: Text.AlignVCenter
+            elide: Qt.ElideRight
         }
     }
 

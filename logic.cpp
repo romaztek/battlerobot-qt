@@ -187,6 +187,23 @@ QString Logic::getGamepadName(QVariant deviceId)
     return QGamepadManager::instance()->gamepadName(deviceId.toInt());
 }
 
+bool Logic::hasTouchScreen()
+{
+    QList<const QTouchDevice*> devices = QTouchDevice::devices();
+
+    if(devices.count() == 0)
+        return false;
+    else {
+        for(auto device: devices) {
+            if(device->maximumTouchPoints() < 2) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 #ifdef Q_OS_ANDROID
 bool Logic::checkException(const char* method, const QAndroidJniObject* obj) {
     static QAndroidJniEnvironment env;

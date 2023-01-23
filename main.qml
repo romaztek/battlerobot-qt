@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
+import Qt.labs.settings 1.0
 
 import ru.romanlenz.logic 1.0
 
@@ -9,6 +10,18 @@ Window {
     visible: true
     width: 640
     height: 360
+
+    property color highlightColor: "#76FF03"
+    property color defaultColor: "#f6f6f6"
+    property color backgroundColor: "white"
+    property color labelBackgroundColor: "#4fc3f7"
+    property bool hasTouchScreen: logic.hasTouchScreen()
+
+    property string leftCommand: "4"
+    property string rightCommand: "6"
+    property string forwardCommand: "2"
+    property string backwardCommand: "8"
+    property string stopCommand: "5"
 
     x: (Screen.desktopAvailableWidth - width)/2
     y: (Screen.desktopAvailableHeight - height)/2
