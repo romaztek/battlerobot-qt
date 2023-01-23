@@ -57,13 +57,13 @@ Window {
 
     Connections {
         target: logic
-        onDeviceConnected: {
+        function onDeviceConnected() {
             controlWindow.setDeviceName(connectWindow.connectedDeviceName)
             connectWindow.hideConnectProgressWindow()
             connectWindow.hide()
             controlWindow.show()
         }
-        onDeviceFound: {
+        function onDeviceFound() {
             connectWindow.listClear()
 
             var devices = logic.getBluetoothDevices().toString()
@@ -82,12 +82,10 @@ Window {
                 connectWindow.listAppend(device_name, device_address)
             }
         }
-        onDeviceDisconnected: {
+        function onDeviceDisconnected() {
 
         }
-
-
-        onDeviceError: {
+        function onDeviceError() {
             console.log(err);
             connectWindow.hideConnectProgressWindow()
             connectWindow.connectedErrorString = err

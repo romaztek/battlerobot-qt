@@ -35,7 +35,7 @@ void myMessageHandler(QtMsgType type, const QMessageLogContext&, const QString& 
     QFile outFile(AppDataLocation + "/log.txt");
     outFile.open(QIODevice::WriteOnly | QIODevice::Append);
     QTextStream ts(&outFile);
-    ts << txt << endl;
+    ts << txt << Qt::endl;
 }
 
 

@@ -33,6 +33,8 @@ Rectangle {
             source: "qrc:/images/bt_icon.png"
             fillMode: Image.PreserveAspectFit
             mipmap: true
+            smooth: true
+            antialiasing: true
         }
         Text {
             id: _txt

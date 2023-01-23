@@ -126,7 +126,7 @@ Rectangle {
 
     Connections {
         target: GamepadManager
-        onGamepadConnected: {
+        function onGamepadConnected() {
             gamepad.deviceId = deviceId
         }
     }

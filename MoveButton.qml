@@ -46,6 +46,8 @@ Rectangle {
             Layout.preferredHeight: btn.width/3
             Layout.alignment: Qt.AlignHCenter
             mipmap: true
+            smooth: true
+            antialiasing: true
         }
         Text {
             id: btnText

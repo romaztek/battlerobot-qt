@@ -22,6 +22,8 @@ Rectangle {
             Layout.margins: 5
             fillMode: Image.PreserveAspectFit
             mipmap: true
+            smooth: true
+            antialiasing: true
         }
         Text {
             id: btnText
