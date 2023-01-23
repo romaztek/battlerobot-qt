@@ -30,7 +30,7 @@ Rectangle {
     }
 
     property double deadzoneValue: 0.15
-    property int currentControlType: ControlWindow.ControlType.None
+    property int currentControlType: ControlWindow.ControlType.Touch
 
     onCurrentControlTypeChanged: {
         if(moveButtonLeft.isPressed) {
@@ -58,10 +58,7 @@ Rectangle {
                 currentGamepadTop.text = qsTr("Not Connected")
                 logic.send(stopCommand)
                 if(currentControlType === ControlWindow.ControlType.Gamepad) {
-                    if(hasTouchScreen)
-                        currentControlType = ControlWindow.ControlType.Touch
-                    else
-                        currentControlType = ControlWindow.ControlType.None
+                    currentControlType = ControlWindow.ControlType.Touch
                     currentGamepadTop.enabled = false
                     currentGamepadTop.radioButton.checked = false
                 }
@@ -71,7 +68,7 @@ Rectangle {
         onButtonLeftChanged: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonLeft) {
-                if(!moveButtonRight.isPressed && (axisLeftX >= -deadzoneValue && axisLeftX <= deadzoneValue))
+                if(!moveButtonRight.isPressed)
                     moveButtonLeft.pressed()
             } else {
                 moveButtonLeft.released()
@@ -81,7 +78,7 @@ Rectangle {
         onButtonRightChanged: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonRight) {
-                if(!moveButtonLeft.isPressed && (axisLeftX >= -deadzoneValue && axisLeftX <= deadzoneValue))
+                if(!moveButtonLeft.isPressed)
                     moveButtonRight.pressed()
             } else {
                 moveButtonRight.released()
@@ -115,10 +112,10 @@ Rectangle {
         onAxisLeftXChanged: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(axisLeftX < -deadzoneValue) {
-                if(!moveButtonRight.isPressed && !buttonLeft)
+                //if(!moveButtonRight.isPressed && !buttonLeft)
                     moveButtonLeft.pressed()
             } else if(axisLeftX > deadzoneValue) {
-                if(!moveButtonLeft.isPressed && !buttonRight)
+                //if(!moveButtonLeft.isPressed && !buttonRight)
                     moveButtonRight.pressed()
             } else {
                 moveButtonLeft.released()
@@ -151,6 +148,11 @@ Rectangle {
     function stopMovement() {
         logic.send(stopCommand)
         console.log(qsTr("STOP"))
+    }
+
+    function centerMovement() {
+        logic.send(centerCommand)
+        console.log(qsTr("MIDDLE"))
     }
 
     ButtonGroup {
@@ -196,8 +198,8 @@ Rectangle {
             Layout.fillHeight: true
             color: labelBackgroundColor
             image: "qrc:/images/touch_icon.png"
-            text: hasTouchScreen ? qsTr("Have") : qsTr("Dont have")
-            enabled: hasTouchScreen
+            text: qsTr("Touch")
+            radioButton.checked: true
             radioButton.onCheckedChanged: {
                 currentControlType = ControlWindow.ControlType.Touch
             }

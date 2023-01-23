@@ -103,57 +103,65 @@
         <translation type="vanished">Езда и Плеер</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="26"/>
+        <location filename="ControlWindow.qml" line="54"/>
         <source>Connected</source>
         <translation>Подключен</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="28"/>
-        <location filename="ControlWindow.qml" line="137"/>
+        <location filename="ControlWindow.qml" line="58"/>
+        <location filename="ControlWindow.qml" line="189"/>
         <source>Not Connected</source>
         <translation>Не Подключен</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="111"/>
+        <location filename="ControlWindow.qml" line="150"/>
         <source>STOP</source>
         <translation>СТОП</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="129"/>
+        <location filename="ControlWindow.qml" line="155"/>
+        <source>MIDDLE</source>
+        <translation>СЕРЕДИНА</translation>
+    </message>
+    <message>
+        <location filename="ControlWindow.qml" line="181"/>
         <source>NULL</source>
         <translation>Отсутствует</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="145"/>
+        <location filename="ControlWindow.qml" line="201"/>
+        <source>Touch</source>
+        <translation>Касания</translation>
+    </message>
+    <message>
         <source>Have</source>
-        <translation>Есть</translation>
+        <translation type="vanished">Есть</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="145"/>
         <source>Dont have</source>
-        <translation type="unfinished">Не Доступно</translation>
+        <translation type="obsolete">Не Доступно</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="259"/>
-        <location filename="ControlWindow.qml" line="263"/>
+        <location filename="ControlWindow.qml" line="230"/>
+        <location filename="ControlWindow.qml" line="234"/>
         <source>LEFT</source>
         <translation>ВЛЕВО</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="274"/>
-        <location filename="ControlWindow.qml" line="279"/>
+        <location filename="ControlWindow.qml" line="246"/>
+        <location filename="ControlWindow.qml" line="251"/>
         <source>RIGHT</source>
         <translation>ВПРАВО</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="295"/>
-        <location filename="ControlWindow.qml" line="299"/>
+        <location filename="ControlWindow.qml" line="268"/>
+        <location filename="ControlWindow.qml" line="272"/>
         <source>FORWARD</source>
         <translation>ВПЕРЕД</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="309"/>
-        <location filename="ControlWindow.qml" line="314"/>
+        <location filename="ControlWindow.qml" line="282"/>
+        <location filename="ControlWindow.qml" line="287"/>
         <source>BACKWARD</source>
         <translation>НАЗАД</translation>
     </message>
@@ -196,9 +204,17 @@
 <context>
     <name>MyIconLabel</name>
     <message>
-        <location filename="MyIconLabel.qml" line="32"/>
+        <location filename="MyIconLabel.qml" line="33"/>
         <source>NULL</source>
-        <translation type="unfinished">Отсутствует</translation>
+        <translation>Отсутствует</translation>
+    </message>
+</context>
+<context>
+    <name>MyIconRadioButtonLabel</name>
+    <message>
+        <location filename="MyIconRadioButtonLabel.qml" line="34"/>
+        <source>NULL</source>
+        <translation>Отсутствует</translation>
     </message>
 </context>
 <context>

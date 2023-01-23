@@ -57,10 +57,9 @@ Rectangle {
 
     MultiPointTouchArea {
         id: ma
-        mouseEnabled: false
+        mouseEnabled: true
         maximumTouchPoints: 2
         anchors.fill: parent
-        enabled: currentControlType === ControlWindow.ControlType.Touch ? true : false
 
         onPressed: {
             btn.pressed()

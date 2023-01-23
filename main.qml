@@ -19,6 +19,7 @@ Window {
 
     property string leftCommand: "4"
     property string rightCommand: "6"
+    property string centerCommand: "0"
     property string forwardCommand: "2"
     property string backwardCommand: "8"
     property string stopCommand: "5"
