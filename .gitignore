@@ -57,3 +57,4 @@ compile_commands.json
 *.pfx
 *.keystore
 
+.qtc_clangd/
