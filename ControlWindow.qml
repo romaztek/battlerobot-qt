@@ -152,7 +152,7 @@ Rectangle {
                     newIntensity = ControlWindow.SteeringIntensity.High
                 }
 
-                if(newIntensity !== currentIntensity)
+                //if(newIntensity !== currentIntensity)
                     leftMovement()
                 currentIntensity = newIntensity
 
@@ -171,7 +171,7 @@ Rectangle {
                     newIntensity = ControlWindow.SteeringIntensity.High
                 }
 
-                if(newIntensity !== currentIntensity)
+                //if(newIntensity !== currentIntensity)
                     rightMovement()
                 currentIntensity = newIntensity
 
@@ -293,9 +293,17 @@ Rectangle {
             id: currentDeviceTop
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: labelBackgroundColor
-            image: "qrc:/images/bt_icon.png"
+            color: text !== qsTr("Reconnect?") && text !== qsTr("NULL") ? labelBackgroundColor : "grey"
+            image: text !== qsTr("Reconnect?") ? "qrc:/images/bt_icon.png" : "qrc:/images/refresh_icon.png"
             text: qsTr("NULL")
+            MouseArea {
+                id: ma
+                anchors.fill: parent
+                enabled: currentDeviceTop.text === qsTr("Reconnect?")
+                onClicked: {
+                    logic.connectToDevice(connectWindow.connectedDeviceAddress)
+                }
+            }
         }
         MyIconRadioButtonLabel {
             id: currentGamepadTop
