@@ -21,7 +21,6 @@ Logic::Logic(QObject *parent) : QObject(parent)
     discoveryAgent->start(QBluetoothDeviceDiscoveryAgent::ClassicMethod);
 #endif
 
-
 }
 
 Logic::~Logic()

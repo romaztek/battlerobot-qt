@@ -22,6 +22,13 @@ Rectangle {
         Gamepad
     }
 
+    enum SteeringIntensity {
+        None,
+        Low,
+        Normal,
+        High
+    }
+
     Component.onCompleted: {
         if(logic.hasTouchScreen()) {
             currentControlType = ControlWindow.ControlType.Touch
@@ -29,8 +36,11 @@ Rectangle {
         }
     }
 
-    property double deadzoneValue: 0.15
+    property double deadzoneValue: 0.1
+
     property int currentControlType: ControlWindow.ControlType.Touch
+    property int currentIntensity: ControlWindow.SteeringIntensity.None
+
 
     onCurrentControlTypeChanged: {
         if(moveButtonLeft.isPressed) {
@@ -54,9 +64,11 @@ Rectangle {
                 currentGamepadTop.text = gamePadName.length === 0 ?  qsTr("Connected") : gamePadName
                 currentControlType = ControlWindow.ControlType.Gamepad
                 currentGamepadTop.enabled = true
+                currentGamepadTop.radioButton.checked = true
             } else {
                 currentGamepadTop.text = qsTr("Not Connected")
-                logic.send(stopCommand)
+                stopMovement()
+                centerMovement()
                 if(currentControlType === ControlWindow.ControlType.Gamepad) {
                     currentControlType = ControlWindow.ControlType.Touch
                     currentGamepadTop.enabled = false
@@ -68,9 +80,15 @@ Rectangle {
         onButtonLeftChanged: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonLeft) {
-                if(!moveButtonRight.isPressed)
-                    moveButtonLeft.pressed()
+                if(!moveButtonRight.isPressed) {
+                    if(currentIntensity !== ControlWindow.SteeringIntensity.High) {
+                        currentIntensity = ControlWindow.SteeringIntensity.High
+                        leftMovement()
+                        moveButtonLeft.isPressed = true
+                    }
+                }
             } else {
+                currentIntensity = ControlWindow.SteeringIntensity.None
                 moveButtonLeft.released()
             }
         }
@@ -78,9 +96,15 @@ Rectangle {
         onButtonRightChanged: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonRight) {
-                if(!moveButtonLeft.isPressed)
-                    moveButtonRight.pressed()
+                if(!moveButtonLeft.isPressed) {
+                    if(currentIntensity !== ControlWindow.SteeringIntensity.High) {
+                        currentIntensity = ControlWindow.SteeringIntensity.High
+                        rightMovement()
+                        moveButtonRight.isPressed = true
+                    }
+                }
             } else {
+                currentIntensity = ControlWindow.SteeringIntensity.None
                 moveButtonRight.released()
             }
         }
@@ -88,38 +112,80 @@ Rectangle {
         onButtonR2Changed: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonR2) {
-                if(buttonL2)
+                if(moveButtonBackward.isPressed)
                     moveButtonBackward.released()
-                if(moveButtonForward.isPressed) return
-                moveButtonForward.pressed()
+                if(!moveButtonForward.isPressed)
+                    moveButtonForward.pressed()
             } else {
-                moveButtonForward.released()
+                if(moveButtonForward.isPressed && !moveButtonBackward.isPressed)
+                    moveButtonForward.released()
             }
         }
 
         onButtonL2Changed: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonL2) {
-                if(buttonR2)
+                if(moveButtonForward.isPressed)
                     moveButtonForward.released()
-                if(moveButtonBackward.isPressed) return
-                moveButtonBackward.pressed()
+                if(!moveButtonBackward.isPressed)
+                    moveButtonBackward.pressed()
             } else {
-                moveButtonBackward.released()
+                if(moveButtonBackward.isPressed && !moveButtonForward.isPressed)
+                    moveButtonBackward.released()
             }
         }
 
         onAxisLeftXChanged: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
+
+            var newIntensity
+
+            // Left
             if(axisLeftX < -deadzoneValue) {
-                //if(!moveButtonRight.isPressed && !buttonLeft)
-                    moveButtonLeft.pressed()
-            } else if(axisLeftX > deadzoneValue) {
-                //if(!moveButtonLeft.isPressed && !buttonRight)
-                    moveButtonRight.pressed()
-            } else {
-                moveButtonLeft.released()
-                moveButtonRight.released()
+                moveButtonRight.isPressed = false
+
+                if(axisLeftX > -0.4) {
+                    newIntensity = ControlWindow.SteeringIntensity.Low
+                } else if(axisLeftX > -0.7) {
+                    newIntensity = ControlWindow.SteeringIntensity.Normal
+                } else {
+                    newIntensity = ControlWindow.SteeringIntensity.High
+                }
+
+                if(newIntensity !== currentIntensity)
+                    leftMovement()
+                currentIntensity = newIntensity
+
+                moveButtonLeft.isPressed = true
+                console.log(newIntensity)
+            }
+            // Right
+            else if(axisLeftX > deadzoneValue) {
+                moveButtonLeft.isPressed = false
+
+                if(axisLeftX > 0.1 && axisLeftX < 0.4) {
+                    newIntensity = ControlWindow.SteeringIntensity.Low
+                } else if(axisLeftX >= 0.4 && axisLeftX < 0.7) {
+                    newIntensity = ControlWindow.SteeringIntensity.Normal
+                } else {
+                    newIntensity = ControlWindow.SteeringIntensity.High
+                }
+
+                if(newIntensity !== currentIntensity)
+                    rightMovement()
+                currentIntensity = newIntensity
+
+                moveButtonRight.isPressed = true
+                console.log(newIntensity)
+            }
+            // In Deadzone
+            else {
+                if(currentIntensity !== ControlWindow.SteeringIntensity.None) {
+                    currentIntensity = ControlWindow.SteeringIntensity.None
+                    centerMovement()
+                }
+                moveButtonLeft.isPressed = false
+                moveButtonRight.isPressed = false
             }
         }
     }
@@ -129,6 +195,7 @@ Rectangle {
         function onGamepadConnected() {
             gamepad.deviceId = deviceId
         }
+
     }
 
     function show() {
@@ -153,6 +220,56 @@ Rectangle {
     function centerMovement() {
         logic.send(centerCommand)
         console.log(qsTr("MIDDLE"))
+    }
+
+    function leftMovement() {
+        const print_dir = qsTr("LEFT")
+        var print_intensity
+        var cmd
+        switch(currentIntensity) {
+        case ControlWindow.SteeringIntensity.Low:
+            cmd = leftCommandLow
+            print_intensity = qsTr("LOW")
+            break
+        case ControlWindow.SteeringIntensity.Normal:
+            cmd = leftCommandNormal
+            print_intensity = qsTr("NORMAL")
+            break
+        case ControlWindow.SteeringIntensity.High:
+            cmd = leftCommandHigh
+            print_intensity = qsTr("HIGH")
+            break
+        default:
+            cmd = leftCommandLow
+            print_intensity = qsTr("LOW")
+        }
+        logic.send(cmd)
+        console.log(print_dir + " " + print_intensity)
+    }
+
+    function rightMovement() {
+        const print_dir = qsTr("RIGHT")
+        var print_intensity
+        var cmd
+        switch(currentIntensity) {
+        case ControlWindow.SteeringIntensity.Low:
+            cmd = rightCommandLow
+            print_intensity = qsTr("LOW")
+            break
+        case ControlWindow.SteeringIntensity.Normal:
+            cmd = rightCommandNormal
+            print_intensity = qsTr("NORMAL")
+            break
+        case ControlWindow.SteeringIntensity.High:
+            cmd = rightCommandHigh
+            print_intensity = qsTr("HIGH")
+            break
+        default:
+            cmd = rightCommandLow
+            print_intensity = qsTr("LOW")
+        }
+        logic.send(cmd)
+        console.log(print_dir + " " + print_intensity)
     }
 
     ButtonGroup {
@@ -230,12 +347,12 @@ Rectangle {
                 text: qsTr("LEFT")
                 image: "qrc:/images/car_icon.png"
                 onPressed: {
-                    logic.send("4")
-                    console.log(qsTr("LEFT"))
+                    currentIntensity = ControlWindow.SteeringIntensity.High
+                    leftMovement()
                 }
                 onReleased: {
-                    if(moveButtonForward.isPressed || moveButtonBackward.isPressed) return
-                    stopMovement()
+                    currentIntensity = ControlWindow.SteeringIntensity.None
+                    centerMovement()
                 }
             }
 
@@ -247,12 +364,12 @@ Rectangle {
                 image: "qrc:/images/car_icon.png"
                 mirror: true
                 onPressed: {
-                    logic.send(rightCommand)
-                    console.log(qsTr("RIGHT"))
+                    currentIntensity = ControlWindow.SteeringIntensity.High
+                    rightMovement()
                 }
                 onReleased: {
-                    if(moveButtonForward.isPressed || moveButtonBackward.isPressed) return
-                    stopMovement()
+                    currentIntensity = ControlWindow.SteeringIntensity.None
+                    centerMovement()
                 }
             }
 

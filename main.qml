@@ -17,8 +17,14 @@ Window {
     property color labelBackgroundColor: "#4fc3f7"
     property bool hasTouchScreen: logic.hasTouchScreen()
 
-    property string leftCommand: "4"
-    property string rightCommand: "6"
+    property string leftCommandLow: "q"
+    property string leftCommandNormal: "w"
+    property string leftCommandHigh: "4"
+
+    property string rightCommandLow: "e"
+    property string rightCommandNormal: "r"
+    property string rightCommandHigh: "6"
+
     property string centerCommand: "0"
     property string forwardCommand: "2"
     property string backwardCommand: "8"

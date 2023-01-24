@@ -20,13 +20,19 @@ Rectangle {
 
     property bool isPressed: false
 
+    onIsPressedChanged: {
+        if(isPressed) {
+            btn.color = highlightColor
+        } else {
+            btn.color = defaultColor
+        }
+    }
+
     onPressed: {
-        btn.color = highlightColor
         isPressed = true
     }
 
     onReleased: {
-        btn.color = defaultColor
         isPressed = false
     }
 
@@ -62,17 +68,19 @@ Rectangle {
         mouseEnabled: true
         maximumTouchPoints: 2
         anchors.fill: parent
+        enabled: currentControlType === ControlWindow.ControlType.Touch
 
         onPressed: {
             btn.pressed()
-            isPressed = false
+            isPressed = true
         }
         onReleased: {
             btn.released()
-            isPressed = true
+            isPressed = false
         }
         onCanceled: {
             btn.released()
+            isPressed = false
         }
     }
 
