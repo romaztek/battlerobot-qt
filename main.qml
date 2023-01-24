@@ -89,9 +89,9 @@ Window {
             }
         }
         function onDeviceDisconnected() {
-
+            controlWindow.setDeviceName(qsTr("Reconnect?"))
         }
-        function onDeviceError() {
+        function onDeviceError(err) {
             console.log(err);
             connectWindow.hideConnectProgressWindow()
             connectWindow.connectedErrorString = err
