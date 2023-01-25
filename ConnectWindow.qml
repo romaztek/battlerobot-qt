@@ -11,6 +11,7 @@ Rectangle {
     color: backgroundColor
 
     property string connectedDeviceName
+    property string connectedDeviceAddress
     property alias connectedErrorString: errorText.text
 
     function show() {
@@ -252,8 +253,10 @@ Rectangle {
             imageSource: "qrc:/images/connect_icon.png"
 
             onClicked: {
-                if(btListModel.get(btList.currentIndex))
+                if(btListModel.get(btList.currentIndex)) {
                     connectedDeviceName = btListModel.get(btList.currentIndex).name
+                    connectedDeviceAddress = btListModel.get(btList.currentIndex).address
+                }
                 else
                     connectedDeviceName = "NULL"
                 connectingText.deviceName = connectedDeviceName
