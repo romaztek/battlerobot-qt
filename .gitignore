@@ -58,3 +58,6 @@ compile_commands.json
 *.keystore
 
 .qtc_clangd/
+
+BattleRobot
+

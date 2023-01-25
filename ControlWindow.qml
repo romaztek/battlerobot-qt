@@ -190,14 +190,6 @@ Rectangle {
         }
     }
 
-    Connections {
-        target: GamepadManager
-        function onGamepadConnected() {
-            gamepad.deviceId = deviceId
-        }
-
-    }
-
     function show() {
         controlW.visible = true
         controlW.enabled = true

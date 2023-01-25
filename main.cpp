@@ -38,37 +38,46 @@ void myMessageHandler(QtMsgType type, const QMessageLogContext&, const QString& 
     ts << txt << Qt::endl;
 }
 
-
 int main(int argc, char *argv[])
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
-
-    QGuiApplication app(argc, argv);
-    /*
-#ifdef Q_OS_WINDOWS
-    qInstallMessageHandler(myMessageHandler);
 #endif
-*/
+    QGuiApplication app(argc, argv);
 
     QTranslator translator;
-#ifdef Q_OS_WINDOWS
-    if (translator.load(QLocale(), QLatin1String("TestBt"), QLatin1String("_"), QLatin1String(":/i18n")))
-        QCoreApplication::installTranslator(&translator);
-#elif defined Q_OS_ANDROID || defined Q_OS_LINUX
-    if(QLocale::system().name() == "ru_RU") {
-        qDebug().noquote() << "Locale:" << QLocale::system().name();
-        if(translator.load(QString("TestBt_ru_RU"), QString(":/i18n"))) {
-            QCoreApplication::installTranslator(&translator);
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "BattleRobot_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            app.installTranslator(&translator);
+            break;
         }
-        else
-            qDebug().noquote() << "Cannot load translation for:" << "ru_RU";
     }
+
+    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
+
+#ifdef Q_OS_WINRT
+    qInstallMessageHandler(myMessageHandler);
 #endif
+
+//    QTranslator translator;
+//#ifdef Q_OS_WINDOWS
+//    if (translator.load(QLocale(), QLatin1String("BattleRobot"), QLatin1String("_"), QLatin1String(":/i18n")))
+//        QCoreApplication::installTranslator(&translator);
+//#elif defined Q_OS_ANDROID || defined Q_OS_LINUX
+//    if(QLocale::system().name() == "ru_RU") {
+//        qDebug().noquote() << "Locale:" << QLocale::system().name();
+//        if(translator.load(QString("BattleRobot_ru_RU"), QString(":/i18n"))) {
+//            QCoreApplication::installTranslator(&translator);
+//        }
+//        else
+//            qDebug().noquote() << "Cannot load translation for:" << "ru_RU";
+//    }
+//#endif
     qmlRegisterType<Logic>("ru.romanlenz.logic", 1, 0, "Logic");
 
     QQmlApplicationEngine engine;
-
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -78,9 +87,7 @@ int main(int argc, char *argv[])
     engine.load(url);
 
     const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-    qDebug().noquote() << "App Data Path: " << AppDataLocation;
-
+    qDebug().noquote() << "App Data Location: " << AppDataLocation;
 
     return app.exec();
 }

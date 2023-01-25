@@ -11,7 +11,7 @@
         <file>MyIconRadioButtonLabel.qml</file>
     </qresource>
     <qresource prefix="/i18n">
-        <file>TestBt_ru_RU.qm</file>
+        <file>BattleRobot_ru_RU.qm</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="robot_head.png">images/robot_head.png</file>
