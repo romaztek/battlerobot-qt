@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
+//    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
 
 #ifdef Q_OS_WINRT
     qInstallMessageHandler(myMessageHandler);
