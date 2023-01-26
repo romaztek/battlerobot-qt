@@ -6,42 +6,42 @@
     <message>
         <location filename="ConnectWindow.qml" line="66"/>
         <source>Select a device</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите машинку</translation>
     </message>
     <message>
         <location filename="ConnectWindow.qml" line="74"/>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Пропустить</translation>
     </message>
     <message>
         <location filename="ConnectWindow.qml" line="204"/>
         <source>Scanning...</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск...</translation>
     </message>
     <message>
         <location filename="ConnectWindow.qml" line="225"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <location filename="ConnectWindow.qml" line="252"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключить</translation>
     </message>
     <message>
         <location filename="ConnectWindow.qml" line="322"/>
         <source>Connecting to</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключение к</translation>
     </message>
     <message>
         <location filename="ConnectWindow.qml" line="387"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка</translation>
     </message>
     <message>
         <location filename="ConnectWindow.qml" line="397"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -49,29 +49,29 @@
     <message>
         <location filename="ControlWindow.qml" line="64"/>
         <source>Connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключен</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="69"/>
         <location filename="ControlWindow.qml" line="306"/>
         <source>Not Connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Не подключен</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="209"/>
         <source>STOP</source>
-        <translation type="unfinished"></translation>
+        <translation>СТОП</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="214"/>
         <source>MIDDLE</source>
-        <translation type="unfinished"></translation>
+        <translation>ЦЕНТР</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="218"/>
-        <location filename="ControlWindow.qml" line="347"/>
+        <location filename="ControlWindow.qml" line="349"/>
         <source>LEFT</source>
-        <translation type="unfinished"></translation>
+        <translation>ВЛЕВО</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="224"/>
@@ -79,55 +79,55 @@
         <location filename="ControlWindow.qml" line="249"/>
         <location filename="ControlWindow.qml" line="261"/>
         <source>LOW</source>
-        <translation type="unfinished"></translation>
+        <translation>СЛАБО</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="228"/>
         <location filename="ControlWindow.qml" line="253"/>
         <source>NORMAL</source>
-        <translation type="unfinished"></translation>
+        <translation>НОРМАЛЬНО</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="232"/>
         <location filename="ControlWindow.qml" line="257"/>
         <source>HIGH</source>
-        <translation type="unfinished"></translation>
+        <translation>СИЛЬНО</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="243"/>
-        <location filename="ControlWindow.qml" line="363"/>
+        <location filename="ControlWindow.qml" line="366"/>
         <source>RIGHT</source>
-        <translation type="unfinished"></translation>
+        <translation>ВПРАВО</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="288"/>
         <location filename="ControlWindow.qml" line="289"/>
         <location filename="ControlWindow.qml" line="294"/>
         <source>Reconnect?</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключить?</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="288"/>
         <location filename="ControlWindow.qml" line="290"/>
         <source>NULL</source>
-        <translation type="unfinished"></translation>
+        <translation>ПУСТО</translation>
     </message>
     <message>
         <location filename="ControlWindow.qml" line="318"/>
         <source>Touch</source>
-        <translation type="unfinished"></translation>
+        <translation>Касания</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="385"/>
-        <location filename="ControlWindow.qml" line="389"/>
+        <location filename="ControlWindow.qml" line="390"/>
+        <location filename="ControlWindow.qml" line="394"/>
         <source>FORWARD</source>
-        <translation type="unfinished"></translation>
+        <translation>ВПЕРЕД</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="399"/>
         <location filename="ControlWindow.qml" line="404"/>
+        <location filename="ControlWindow.qml" line="409"/>
         <source>BACKWARD</source>
-        <translation type="unfinished"></translation>
+        <translation>НАЗАД</translation>
     </message>
 </context>
 <context>
@@ -135,42 +135,42 @@
     <message>
         <location filename="logic.cpp" line="143"/>
         <source>Unknown Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Неизвестная ошибка</translation>
     </message>
     <message>
         <location filename="logic.cpp" line="146"/>
         <source>Host Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Хост не найден</translation>
     </message>
     <message>
         <location filename="logic.cpp" line="149"/>
         <source>Service Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервис не найден</translation>
     </message>
     <message>
         <location filename="logic.cpp" line="152"/>
         <source>Network Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка сети</translation>
     </message>
     <message>
         <location filename="logic.cpp" line="155"/>
         <source>Unsupported Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Неподдерживаемый протокол</translation>
     </message>
     <message>
         <location filename="logic.cpp" line="158"/>
         <source>Operation Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка операции</translation>
     </message>
     <message>
         <location filename="logic.cpp" line="161"/>
         <source>Remote Host Closed</source>
-        <translation type="unfinished"></translation>
+        <translation>Соединение прервано</translation>
     </message>
     <message>
         <location filename="logic.cpp" line="164"/>
         <source>No Socket Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет сокета</translation>
     </message>
 </context>
 <context>
@@ -178,7 +178,7 @@
     <message>
         <location filename="MyIconLabel.qml" line="35"/>
         <source>NULL</source>
-        <translation type="unfinished"></translation>
+        <translation>ПУСТО</translation>
     </message>
 </context>
 <context>
@@ -186,7 +186,7 @@
     <message>
         <location filename="MyIconRadioButtonLabel.qml" line="36"/>
         <source>NULL</source>
-        <translation type="unfinished"></translation>
+        <translation>ПУСТО</translation>
     </message>
 </context>
 <context>
@@ -194,7 +194,7 @@
     <message>
         <location filename="main.qml" line="92"/>
         <source>Reconnect?</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключить?</translation>
     </message>
 </context>
 </TS>
