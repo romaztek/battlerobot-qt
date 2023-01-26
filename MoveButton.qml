@@ -48,8 +48,9 @@ Rectangle {
         anchors.centerIn: parent
         Image {
             id: btnImage
-            Layout.preferredWidth: sourceSize.width/sourceSize.height * btn.width/3
-            Layout.preferredHeight: btn.width/3
+            property real sizeScale: 2.5
+            Layout.preferredWidth: sourceSize.width/sourceSize.height * Layout.preferredHeight
+            Layout.preferredHeight: btn.width > btn.height ? btn.height/sizeScale : btn.width/sizeScale
             Layout.alignment: Qt.AlignHCenter
             mipmap: true
             smooth: true

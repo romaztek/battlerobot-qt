@@ -335,6 +335,7 @@ Rectangle {
         enabled: true
 
         RowLayout {
+            id: controlRowLayout
             anchors.bottom: parent.bottom
             height: parent.height
             width: parent.width
@@ -342,8 +343,9 @@ Rectangle {
 
             MoveButton {
                 id: moveButtonLeft
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+                Layout.preferredWidth: controlRowLayout.width/5
+                Layout.preferredHeight: controlRowLayout.height
+
                 text: qsTr("LEFT")
                 image: "qrc:/images/car_icon.png"
                 onPressed: {
@@ -358,8 +360,9 @@ Rectangle {
 
             MoveButton {
                 id: moveButtonRight
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+                Layout.preferredWidth: controlRowLayout.width/5
+                Layout.preferredHeight: controlRowLayout.height
+
                 text: qsTr("RIGHT")
                 image: "qrc:/images/car_icon.png"
                 mirror: true
@@ -376,6 +379,8 @@ Rectangle {
             ColumnLayout {
                 height: 200
                 spacing: 5
+                //Layout.preferredWidth: controlRowLayout.width/2
+                Layout.preferredHeight: controlRowLayout.height
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 MoveButton {
@@ -408,8 +413,8 @@ Rectangle {
                     }
                 }
             }
-
         }
+
     }
 
 }
