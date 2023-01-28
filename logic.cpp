@@ -5,13 +5,7 @@ Logic::Logic(QObject *parent) : QObject(parent)
     QScreen *screen = qApp->screens().at(0);
     mDensity = screen->devicePixelRatio();
 
-    /*QStringList devices = getBluetoothDevices();
-    qDebug().noquote() << devices;*/
-
 #if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
-    QBluetoothLocalDevice localDevice;
-    QString localDeviceName;
-
     discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
 
     connect(discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
@@ -30,8 +24,34 @@ Logic::~Logic()
 
 void Logic::deviceDiscovered(const QBluetoothDeviceInfo& device)
 {
+    addresses.append(device.address().toString());
     devices.append(device.address().toString() + " " + device.name());
     emit deviceFound();
+}
+
+QString Logic::getLastConnectedBtDevice()
+{
+    const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+#ifdef Q_OS_WINDOWS
+    QSettings settings(AppDataLocation + "\\settings.ini", QSettings::IniFormat);
+#elif defined Q_OS_LINUX
+    QSettings settings(AppDataLocation + "/settings");
+#endif
+
+    return settings.value("lastBtDevice", "").toString();
+}
+
+void Logic::setLastConnectedBtDevice(const QString &value)
+{
+    const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+#ifdef Q_OS_WINDOWS
+    QSettings settings(AppDataLocation + "\\settings.ini", QSettings::IniFormat);
+#elif defined Q_OS_LINUX
+    QSettings settings(AppDataLocation + "/settings");
+#endif
+
+    settings.setValue("lastBtDevice", value);
+    settings.sync();
 }
 
 void Logic::print(QString text) {
@@ -55,10 +75,11 @@ void Logic::getDeviceList()
 
 QStringList Logic::getBluetoothDevices()
 {
+    QStringList addresses;
     QStringList result;
-    QString fmt("%1 %2");
 
 #ifdef Q_OS_ANDROID
+    QString fmt("%1 %2");
     // Query via Android Java API.
     QAndroidJniObject adapter=QAndroidJniObject::callStaticObjectMethod("android/bluetooth/BluetoothAdapter","getDefaultAdapter","()Landroid/bluetooth/BluetoothAdapter;"); // returns a BluetoothAdapter
     if (checkException("BluetoothAdapter.getDefaultAdapter()",&adapter)) {
@@ -83,33 +104,37 @@ QStringList Logic::getBluetoothDevices()
             QString address=dev.callObjectMethod("getAddress","()Ljava/lang/String;").toString(); // returns a String
             QString name=dev.callObjectMethod("getName","()Ljava/lang/String;").toString(); // returns a String
             result.append(fmt.arg(address).arg(name));
+            adresses.append(address);
         }
     }
-
-#elif defined Q_OS_LINUX
-    // Query via the Linux command bt-device.
-//    QProcess command;
-//    command.start("bt-device -l");
-//    command.waitForFinished(3000);
-//    if (command.error() == QProcess::FailedToStart) {
-//        qWarning("Cannot execute the command 'bt-device': %s",qPrintable(command.errorString()));
-//    }
-//    else {
-//        // Parse the output, example: HC-06 (20:13:11:15:16:08)
-//        QByteArray output=command.readAllStandardOutput();
-//        QRegExp regexp("(.*) \\((.*)\\)");
-//        foreach(QByteArray line, output.split('\n')) {
-//            if (regexp.indexIn(line) >= 0) {
-//                result.append(fmt.arg(regexp.cap(2)).arg(regexp.cap(1)));
-//            }
-//        }
-//    }
 #endif
 
 #if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
+    addresses = this->addresses;
     result = devices;
     //emit deviceConnected();
 #endif
+
+    setLastConnectedBtDevice("C4:DF:39:83:AE:65");
+
+    QString lastAddress = getLastConnectedBtDevice();
+    int index = -1;
+
+    if(lastAddress.length() != 0) {
+        for(const QString &res: qAsConst(addresses)) {
+            if(QString::compare(res, lastAddress) == 0) {
+                qDebug().noquote() << "LATEST" << res;
+                index = addresses.indexOf(res);
+                break;
+            }
+        }
+    }
+
+    if(index != -1) {
+        QString lastDevice = result.at(index);
+        result.removeAt(index);
+        result.insert(0, lastDevice);
+    }
 
     return result;
 }
@@ -129,6 +154,7 @@ void Logic::connectToDevice(QString address)
     socket->connectToService(QBluetoothAddress(address), QBluetoothUuid(serviceUuid), QIODevice::ReadWrite);
 
     connect(socket, &QBluetoothSocket::connected, this, [=] {
+        setLastConnectedBtDevice(address);
         emit deviceConnected();
 
         socket->write("@");

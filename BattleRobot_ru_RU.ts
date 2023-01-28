@@ -133,42 +133,42 @@
 <context>
     <name>Logic</name>
     <message>
-        <location filename="logic.cpp" line="143"/>
+        <location filename="logic.cpp" line="169"/>
         <source>Unknown Error</source>
         <translation>Неизвестная ошибка</translation>
     </message>
     <message>
-        <location filename="logic.cpp" line="146"/>
+        <location filename="logic.cpp" line="172"/>
         <source>Host Not Found</source>
         <translation>Хост не найден</translation>
     </message>
     <message>
-        <location filename="logic.cpp" line="149"/>
+        <location filename="logic.cpp" line="175"/>
         <source>Service Not Found</source>
         <translation>Сервис не найден</translation>
     </message>
     <message>
-        <location filename="logic.cpp" line="152"/>
+        <location filename="logic.cpp" line="178"/>
         <source>Network Error</source>
         <translation>Ошибка сети</translation>
     </message>
     <message>
-        <location filename="logic.cpp" line="155"/>
+        <location filename="logic.cpp" line="181"/>
         <source>Unsupported Protocol</source>
         <translation>Неподдерживаемый протокол</translation>
     </message>
     <message>
-        <location filename="logic.cpp" line="158"/>
+        <location filename="logic.cpp" line="184"/>
         <source>Operation Error</source>
         <translation>Ошибка операции</translation>
     </message>
     <message>
-        <location filename="logic.cpp" line="161"/>
+        <location filename="logic.cpp" line="187"/>
         <source>Remote Host Closed</source>
         <translation>Соединение прервано</translation>
     </message>
     <message>
-        <location filename="logic.cpp" line="164"/>
+        <location filename="logic.cpp" line="190"/>
         <source>No Socket Error</source>
         <translation>Нет сокета</translation>
     </message>

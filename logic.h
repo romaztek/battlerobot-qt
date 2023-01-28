@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QList>
 #include <QScreen>
+#include <QSettings>
+#include <QStandardPaths>
 #include <QGuiApplication>
 #include <QTouchDevice>
 
@@ -56,10 +58,14 @@ public slots:
     void deviceDiscovered(const QBluetoothDeviceInfo& device);
 
 private:
+    QStringList addresses;
     QStringList devices;
 
     QBluetoothDeviceDiscoveryAgent* discoveryAgent = nullptr;
     QBluetoothSocket *socket = nullptr;
+
+    QString getLastConnectedBtDevice();
+    void setLastConnectedBtDevice(const QString &value);
 
 signals:
     void deviceConnected();
