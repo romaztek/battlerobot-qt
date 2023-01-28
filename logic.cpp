@@ -104,7 +104,7 @@ QStringList Logic::getBluetoothDevices()
             QString address=dev.callObjectMethod("getAddress","()Ljava/lang/String;").toString(); // returns a String
             QString name=dev.callObjectMethod("getName","()Ljava/lang/String;").toString(); // returns a String
             result.append(fmt.arg(address).arg(name));
-            adresses.append(address);
+            addresses.append(address);
         }
     }
 #endif

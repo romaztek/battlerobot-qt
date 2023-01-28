@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(BattleRobot VERSION 0.1 LANGUAGES CXX)
+project(BattleRobot VERSION 4.0 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -13,13 +13,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(ANDROID)
     set(ANDROID_BUILD_ABI_arm64-v8a ON)
     set(ANDROID_BUILD_ABI_armeabi-v7a ON)
-    set(ANDROID_BUILD_ABI_x86 ON)
+    #set(ANDROID_BUILD_ABI_x86 ON)
+    #set(ANDROID_BUILD_ABI_x86_64 ON)
 
     set(ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android CACHE INTERNAL "" )
 
     # See https://bugreports.qt.io/browse/QTBUG-84302
     # Change to your installed SDK Build-tools Version
     set(ANDROID_SDK_BUILD_TOOLS_REVISION "28.0.3")
+
     find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick LinguistTools Bluetooth Gamepad Concurrent AndroidExtras)
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick LinguistTools Bluetooth Gamepad Concurrent AndroidExtras)
 else()
