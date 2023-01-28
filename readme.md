@@ -4,7 +4,7 @@
 ## Программа-клиент для управления машинки/робота на Arduino
 
 ![image](https://user-images.githubusercontent.com/10671637/213950697-a83d5f06-458c-4a21-acf8-34e4c7b13b27.png)
-![image](https://user-images.githubusercontent.com/10671637/214733074-c2ab5219-4656-4581-9a88-468c4f95d0b1.png)
+![image](https://user-images.githubusercontent.com/10671637/215286177-5f777a9e-50f9-46c1-9b26-565ea6380457.png)
 
 ## Пример команд для управления:
 
