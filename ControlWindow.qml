@@ -321,6 +321,19 @@ Rectangle {
                 currentControlType = ControlWindow.ControlType.Touch
             }
         }
+
+        MyIconButton {
+            id: exitButton
+            Layout.minimumWidth: 50
+            Layout.fillHeight: true
+            imageSource: "qrc:/images/quit_icon.png"
+            color: Qt.lighter("red", 1.3)
+            onPressed: color = "red"
+            onReleased: color = Qt.lighter("red", 1.3)
+            onClicked: {
+                quitDialog.show()
+            }
+        }
     }
 
     Item {
@@ -417,4 +430,12 @@ Rectangle {
 
     }
 
+    QuitDialog {
+        id: quitDialog
+        width: exitButton.width * 2 + topMenu.spacing*3
+        height: exitButton.height + topMenu.spacing*2
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: topMenu.spacing
+    }
 }

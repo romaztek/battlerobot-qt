@@ -69,7 +69,7 @@
     </message>
     <message>
         <location filename="ControlWindow.qml" line="218"/>
-        <location filename="ControlWindow.qml" line="349"/>
+        <location filename="ControlWindow.qml" line="362"/>
         <source>LEFT</source>
         <translation>ВЛЕВО</translation>
     </message>
@@ -95,7 +95,7 @@
     </message>
     <message>
         <location filename="ControlWindow.qml" line="243"/>
-        <location filename="ControlWindow.qml" line="366"/>
+        <location filename="ControlWindow.qml" line="379"/>
         <source>RIGHT</source>
         <translation>ВПРАВО</translation>
     </message>
@@ -118,14 +118,14 @@
         <translation>Касания</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="390"/>
-        <location filename="ControlWindow.qml" line="394"/>
+        <location filename="ControlWindow.qml" line="403"/>
+        <location filename="ControlWindow.qml" line="407"/>
         <source>FORWARD</source>
         <translation>ВПЕРЕД</translation>
     </message>
     <message>
-        <location filename="ControlWindow.qml" line="404"/>
-        <location filename="ControlWindow.qml" line="409"/>
+        <location filename="ControlWindow.qml" line="417"/>
+        <location filename="ControlWindow.qml" line="422"/>
         <source>BACKWARD</source>
         <translation>НАЗАД</translation>
     </message>

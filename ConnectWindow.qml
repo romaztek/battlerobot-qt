@@ -92,7 +92,7 @@ Rectangle {
         clip: true
         delegate: Component {
             Rectangle {
-                width: parent.width
+                width: btList.width
                 height: 50
                 radius: height/4
                 color: "transparent"

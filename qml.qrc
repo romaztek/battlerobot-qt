@@ -9,6 +9,7 @@
         <file>MoveButton.qml</file>
         <file>MyIconLabel.qml</file>
         <file>MyIconRadioButtonLabel.qml</file>
+        <file>QuitDialog.qml</file>
     </qresource>
     <qresource prefix="/i18n">
         <file>BattleRobot_ru_RU.qm</file>
@@ -28,5 +29,8 @@
         <file alias="car_icon.png">images/car_icon.png</file>
         <file alias="gaz_icon.png">images/gaz_icon.png</file>
         <file alias="touch_icon.png">images/touch_icon.png</file>
+        <file alias="quit_icon.png">images/quit_icon.png</file>
+        <file alias="yes_icon.png">images/yes_icon.png</file>
+        <file alias="no_icon.png">images/no_icon.png</file>
     </qresource>
 </RCC>
