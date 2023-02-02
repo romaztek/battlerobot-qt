@@ -1,11 +1,11 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
-import Qt.labs.settings 1.0
+import Qt.labs.settings 1.1
 
 import ru.romanlenz.logic 1.0
 
-Window {
+ApplicationWindow {
     id: main
     visible: true
     width: 640
@@ -20,10 +20,12 @@ Window {
     property string leftCommandLow: "q"
     property string leftCommandNormal: "w"
     property string leftCommandHigh: "4"
+    property string leftCommandDrift: "o"
 
     property string rightCommandLow: "e"
     property string rightCommandNormal: "r"
     property string rightCommandHigh: "6"
+    property string rightCommandDrift: "p"
 
     property string centerCommand: "0"
     property string forwardCommand: "2"
@@ -108,6 +110,12 @@ Window {
     ControlWindow {
         id: controlWindow
         anchors.fill: parent
-    }    
+    }
+
+    SettingsWindow {
+        id: settingsWindow
+        anchors.fill: parent
+        anchors.margins: 5
+    }
 
 }

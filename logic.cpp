@@ -34,6 +34,9 @@ QString Logic::getLastConnectedBtDevice()
     const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 #ifdef Q_OS_WINDOWS
     QSettings settings(AppDataLocation + "\\settings.ini", QSettings::IniFormat);
+#elif defined Q_OS_ANDROID
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+    QSettings settings(path + "/settings", QSettings::NativeFormat);
 #elif defined Q_OS_LINUX
     QSettings settings(AppDataLocation + "/settings");
 #endif
@@ -46,6 +49,9 @@ void Logic::setLastConnectedBtDevice(const QString &value)
     const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 #ifdef Q_OS_WINDOWS
     QSettings settings(AppDataLocation + "\\settings.ini", QSettings::IniFormat);
+#elif defined Q_OS_ANDROID
+    QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+    QSettings settings(path + "/settings", QSettings::NativeFormat);
 #elif defined Q_OS_LINUX
     QSettings settings(AppDataLocation + "/settings");
 #endif
@@ -115,7 +121,6 @@ QStringList Logic::getBluetoothDevices()
     //emit deviceConnected();
 #endif
 
-    setLastConnectedBtDevice("C4:DF:39:83:AE:65");
 
     QString lastAddress = getLastConnectedBtDevice();
     int index = -1;

@@ -45,9 +45,9 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    QCoreApplication::setOrganizationName("Roman Kartashev");
-    QCoreApplication::setOrganizationDomain("romanlenz.ru");
-    QCoreApplication::setApplicationName("BattleRobot");
+    QCoreApplication::setOrganizationName("romankartashev");
+    QCoreApplication::setOrganizationDomain("romankartashev.ru");
+    QCoreApplication::setApplicationName("battlerobot");
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

@@ -39,7 +39,8 @@ SOURCES = main.qml \
 	MyIconButton.qml \
 	MyIconLabel.qml \
 	MyIconRadioButtonLabel.qml \
-	QuitDialog.qml.qml
+        QuitDialog.qml.qml \
+        SettingsWindow.qml
 }
 
 CONFIG(debug, debug|release) {

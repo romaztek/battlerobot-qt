@@ -45,22 +45,26 @@ Rectangle {
     }
 
     ColumnLayout {
-        anchors.centerIn: parent
+        anchors.fill: parent
         Image {
             id: btnImage
             property real sizeScale: 2.5
-            Layout.preferredWidth: sourceSize.width/sourceSize.height * Layout.preferredHeight
-            Layout.preferredHeight: btn.width > btn.height ? btn.height/sizeScale : btn.width/sizeScale
+            Layout.preferredWidth: sourceSize.width/sourceSize.height * prefHeight
+            Layout.preferredHeight: prefHeight
             Layout.alignment: Qt.AlignHCenter
             mipmap: true
             smooth: true
             antialiasing: true
+            property real prefHeight: btn.width > btn.height ? btn.height/sizeScale : btn.width/sizeScale
         }
         Text {
             id: btnText
-            Layout.alignment: Qt.AlignHCenter
+            Layout.fillWidth: true
             text: "null"
             font.pointSize: 14
+            elide: Text.ElideRight
+            wrapMode: Text.WordWrap
+            horizontalAlignment: Text.AlignHCenter
         }
     }
 

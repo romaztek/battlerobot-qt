@@ -10,6 +10,7 @@
         <file>MyIconLabel.qml</file>
         <file>MyIconRadioButtonLabel.qml</file>
         <file>QuitDialog.qml</file>
+        <file>SettingsWindow.qml</file>
     </qresource>
     <qresource prefix="/i18n">
         <file>BattleRobot_ru_RU.qm</file>
@@ -32,5 +33,9 @@
         <file alias="quit_icon.png">images/quit_icon.png</file>
         <file alias="yes_icon.png">images/yes_icon.png</file>
         <file alias="no_icon.png">images/no_icon.png</file>
+        <file alias="arrow_icon.png">images/arrow_icon.png</file>
+        <file alias="settings_icon.png">images/settings_icon.png</file>
+        <file alias="save_icon.png">images/save_icon.png</file>
+        <file alias="back_icon.png">images/back_icon.png</file>
     </qresource>
 </RCC>

@@ -26,7 +26,8 @@ Rectangle {
         None,
         Low,
         Normal,
-        High
+        High,
+        Drift
     }
 
     Component.onCompleted: {
@@ -41,6 +42,11 @@ Rectangle {
     property int currentControlType: ControlWindow.ControlType.Touch
     property int currentIntensity: ControlWindow.SteeringIntensity.None
 
+    property bool enableLogs: true
+
+    function print(value) {
+        if(enableLogs) console.log(value)
+    }
 
     onCurrentControlTypeChanged: {
         if(moveButtonLeft.isPressed) {
@@ -77,19 +83,19 @@ Rectangle {
             }
         }
 
-        onButtonLeftChanged: {
+        /*onButtonLeftChanged: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonLeft) {
                 if(!moveButtonRight.isPressed) {
-                    if(currentIntensity !== ControlWindow.SteeringIntensity.High) {
-                        currentIntensity = ControlWindow.SteeringIntensity.High
+                    if(currentIntensity !== ControlWindow.SteeringIntensity.Drift) {
+                        currentIntensity = ControlWindow.SteeringIntensity.Drift
                         leftMovement()
-                        moveButtonLeft.isPressed = true
+                        driftButtonLeft.isPressed = true
                     }
                 }
             } else {
                 currentIntensity = ControlWindow.SteeringIntensity.None
-                moveButtonLeft.released()
+                driftButtonLeft.released()
             }
         }
 
@@ -97,17 +103,17 @@ Rectangle {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
             if(buttonRight) {
                 if(!moveButtonLeft.isPressed) {
-                    if(currentIntensity !== ControlWindow.SteeringIntensity.High) {
-                        currentIntensity = ControlWindow.SteeringIntensity.High
+                    if(currentIntensity !== ControlWindow.SteeringIntensity.Drift) {
+                        currentIntensity = ControlWindow.SteeringIntensity.Drift
                         rightMovement()
-                        moveButtonRight.isPressed = true
+                        driftButtonRight.isPressed = true
                     }
                 }
             } else {
                 currentIntensity = ControlWindow.SteeringIntensity.None
-                moveButtonRight.released()
+                driftButtonRight.released()
             }
-        }
+        }*/
 
         onButtonR2Changed: {
             if(currentControlType !== ControlWindow.ControlType.Gamepad) return
@@ -152,12 +158,13 @@ Rectangle {
                     newIntensity = ControlWindow.SteeringIntensity.High
                 }
 
-                //if(newIntensity !== currentIntensity)
+                if(newIntensity !== currentIntensity) {
+                    currentIntensity = newIntensity
                     leftMovement()
-                currentIntensity = newIntensity
+                }
 
                 moveButtonLeft.isPressed = true
-                console.log(newIntensity)
+                //print(newIntensity)
             }
             // Right
             else if(axisLeftX > deadzoneValue) {
@@ -171,12 +178,13 @@ Rectangle {
                     newIntensity = ControlWindow.SteeringIntensity.High
                 }
 
-                //if(newIntensity !== currentIntensity)
+                if(newIntensity !== currentIntensity) {
+                    currentIntensity = newIntensity
                     rightMovement()
-                currentIntensity = newIntensity
+                }
 
                 moveButtonRight.isPressed = true
-                console.log(newIntensity)
+                //print(newIntensity)
             }
             // In Deadzone
             else {
@@ -186,6 +194,50 @@ Rectangle {
                 }
                 moveButtonLeft.isPressed = false
                 moveButtonRight.isPressed = false
+            }
+        }
+
+        onAxisRightXChanged: {
+            if(currentControlType !== ControlWindow.ControlType.Gamepad) return
+
+            var newIntensity
+
+            // Left Drift
+            if(axisRightX < -deadzoneValue) {
+                driftButtonRight.isPressed = false
+
+                newIntensity = ControlWindow.SteeringIntensity.Drift
+
+                if(newIntensity !== currentIntensity) {
+                    currentIntensity = newIntensity
+                    leftMovement()
+                }
+
+                driftButtonLeft.isPressed = true
+                //print(newIntensity)
+            }
+            // Right Drift
+            else if(axisRightX > deadzoneValue) {
+                driftButtonLeft.isPressed = false
+
+                newIntensity = ControlWindow.SteeringIntensity.Drift
+
+                if(newIntensity !== currentIntensity) {
+                    currentIntensity = newIntensity
+                    rightMovement()
+                }
+
+                driftButtonRight.isPressed = true
+                //print(newIntensity)
+            }
+            // In Deadzone
+            else {
+                if(currentIntensity !== ControlWindow.SteeringIntensity.None) {
+                    currentIntensity = ControlWindow.SteeringIntensity.None
+                    centerMovement()
+                }
+                driftButtonLeft.isPressed = false
+                driftButtonRight.isPressed = false
             }
         }
     }
@@ -206,12 +258,12 @@ Rectangle {
 
     function stopMovement() {
         logic.send(stopCommand)
-        console.log(qsTr("STOP"))
+        print(qsTr("STOP"))
     }
 
     function centerMovement() {
         logic.send(centerCommand)
-        console.log(qsTr("MIDDLE"))
+        print(qsTr("MIDDLE"))
     }
 
     function leftMovement() {
@@ -231,12 +283,16 @@ Rectangle {
             cmd = leftCommandHigh
             print_intensity = qsTr("HIGH")
             break
+        case ControlWindow.SteeringIntensity.Drift:
+            cmd = leftCommandDrift
+            print_intensity = qsTr("DRIFT")
+            break
         default:
             cmd = leftCommandLow
             print_intensity = qsTr("LOW")
         }
         logic.send(cmd)
-        console.log(print_dir + " " + print_intensity)
+        print(print_dir + " " + print_intensity)
     }
 
     function rightMovement() {
@@ -256,12 +312,16 @@ Rectangle {
             cmd = rightCommandHigh
             print_intensity = qsTr("HIGH")
             break
+        case ControlWindow.SteeringIntensity.Drift:
+            cmd = rightCommandDrift
+            print_intensity = qsTr("DRIFT")
+            break
         default:
             cmd = rightCommandLow
             print_intensity = qsTr("LOW")
         }
         logic.send(cmd)
-        console.log(print_dir + " " + print_intensity)
+        print(print_dir + " " + print_intensity)
     }
 
     ButtonGroup {
@@ -323,12 +383,25 @@ Rectangle {
         }
 
         MyIconButton {
+            id: settingsButton
+            Layout.minimumWidth: 50
+            Layout.fillHeight: true
+            imageSource: "qrc:/images/settings_icon.png"
+            color: Qt.lighter("green", 1.3)
+            onPressed: color = "green"
+            onReleased: color = Qt.lighter("green", 1.3)
+            onClicked: {
+                settingsWindow.show()
+            }
+        }
+
+        MyIconButton {
             id: exitButton
             Layout.minimumWidth: 50
             Layout.fillHeight: true
             imageSource: "qrc:/images/quit_icon.png"
             color: Qt.lighter("red", 1.3)
-            onPressed: color = "red"
+            onPressed: color = Qt.darker("red", 1.1)
             onReleased: color = Qt.lighter("red", 1.3)
             onClicked: {
                 quitDialog.show()
@@ -354,46 +427,104 @@ Rectangle {
             width: parent.width
             spacing: 5
 
-            MoveButton {
-                id: moveButtonLeft
-                Layout.preferredWidth: controlRowLayout.width/5
+            Item {
+                id: moveButtons
+                Layout.preferredWidth: controlRowLayout.width/3
                 Layout.preferredHeight: controlRowLayout.height
+                Layout.maximumWidth: controlRowLayout.width/3
+                Layout.maximumHeight: controlRowLayout.height
 
-                text: qsTr("LEFT")
-                image: "qrc:/images/car_icon.png"
-                onPressed: {
-                    currentIntensity = ControlWindow.SteeringIntensity.High
-                    leftMovement()
-                }
-                onReleased: {
-                    currentIntensity = ControlWindow.SteeringIntensity.None
-                    centerMovement()
-                }
-            }
+                property real spacing: 5
+                property real elementWidth: (width - spacing)/2
+                property real elementHeight: (height - spacing)/2
 
-            MoveButton {
-                id: moveButtonRight
-                Layout.preferredWidth: controlRowLayout.width/5
-                Layout.preferredHeight: controlRowLayout.height
+                MoveButton {
+                    id: moveButtonLeft
+                    width: moveButtons.elementWidth
+                    height: moveButtons.elementHeight
+                    anchors.top: parent.top
 
-                text: qsTr("RIGHT")
-                image: "qrc:/images/car_icon.png"
-                mirror: true
-                onPressed: {
-                    currentIntensity = ControlWindow.SteeringIntensity.High
-                    rightMovement()
+                    text: qsTr("LEFT")
+                    image: "qrc:/images/arrow_icon.png"
+                    onPressed: {
+                        currentIntensity = ControlWindow.SteeringIntensity.High
+                        leftMovement()
+                    }
+                    onReleased: {
+                        currentIntensity = ControlWindow.SteeringIntensity.None
+                        centerMovement()
+                    }
                 }
-                onReleased: {
-                    currentIntensity = ControlWindow.SteeringIntensity.None
-                    centerMovement()
+
+                MoveButton {
+                    id: moveButtonRight
+                    width: moveButtons.elementWidth
+                    height: moveButtons.elementHeight
+                    anchors.left: moveButtonLeft.right
+                    anchors.leftMargin: 5
+                    anchors.top: parent.top
+
+                    text: qsTr("RIGHT")
+                    image: "qrc:/images/arrow_icon.png"
+                    mirror: true
+                    onPressed: {
+                        currentIntensity = ControlWindow.SteeringIntensity.High
+                        rightMovement()
+                    }
+                    onReleased: {
+                        currentIntensity = ControlWindow.SteeringIntensity.None
+                        centerMovement()
+                    }
+                }
+                MoveButton {
+                    id: driftButtonLeft
+                    width: moveButtons.elementWidth
+                    height: moveButtons.elementHeight
+                    anchors.top:  moveButtonLeft.bottom
+                    anchors.topMargin: 5
+                    anchors.bottom: parent.bottom
+
+                    text: qsTr("LEFT") + " " + qsTr("DRIFT")
+                    image: "qrc:/images/car_icon.png"
+                    onPressed: {
+                        currentIntensity = ControlWindow.SteeringIntensity.Drift
+                        leftMovement()
+                    }
+                    onReleased: {
+                        currentIntensity = ControlWindow.SteeringIntensity.None
+                        centerMovement()
+                    }
+                }
+
+                MoveButton {
+                    id: driftButtonRight
+                    width: moveButtons.elementWidth
+                    height: moveButtons.elementHeight
+                    anchors.left: driftButtonLeft.right
+                    anchors.leftMargin: 5
+                    anchors.top:  moveButtonRight.bottom
+                    anchors.topMargin: 5
+                    anchors.bottom: parent.bottom
+
+                    text: qsTr("RIGHT") + " " + qsTr("DRIFT")
+                    image: "qrc:/images/car_icon.png"
+                    mirror: true
+                    onPressed: {
+                        currentIntensity = ControlWindow.SteeringIntensity.Drift
+                        rightMovement()
+                    }
+                    onReleased: {
+                        currentIntensity = ControlWindow.SteeringIntensity.None
+                        centerMovement()
+                    }
                 }
             }
 
             ColumnLayout {
                 height: 200
                 spacing: 5
-                //Layout.preferredWidth: controlRowLayout.width/2
                 Layout.preferredHeight: controlRowLayout.height
+                Layout.maximumHeight: controlRowLayout.height
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 MoveButton {
@@ -404,7 +535,7 @@ Rectangle {
                     image: "qrc:/images/gaz_icon.png"
                     onPressed: {
                         logic.send(forwardCommand)
-                        console.log(qsTr("FORWARD"))
+                        print(qsTr("FORWARD"))
                     }
                     onReleased: {
                         stopMovement()
@@ -419,7 +550,7 @@ Rectangle {
                     rotation: 180
                     onPressed: {
                         logic.send(backwardCommand)
-                        console.log(qsTr("BACKWARD"))
+                        print(qsTr("BACKWARD"))
                     }
                     onReleased: {
                         stopMovement()
