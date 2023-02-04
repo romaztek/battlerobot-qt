@@ -7,6 +7,9 @@ debug
 release
 *.appx
 
+### ios
+.DS_Store
+
 ### appx sign
 release.appx
 romashka.cer

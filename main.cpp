@@ -7,8 +7,12 @@
 #include <QTextStream>
 #include <QStandardPaths>
 
+#include <iostream>
+
 #include "logic.h"
 
+
+#ifdef Q_OS_WINRT
 void myMessageHandler(QtMsgType type, const QMessageLogContext&, const QString& msg)
 {
     QString txt;
@@ -35,8 +39,9 @@ void myMessageHandler(QtMsgType type, const QMessageLogContext&, const QString& 
     QFile outFile(AppDataLocation + "/log.txt");
     outFile.open(QIODevice::WriteOnly | QIODevice::Append);
     QTextStream ts(&outFile);
-    ts << txt << Qt::endl;
+    ts << txt << std::endl;
 }
+#endif
 
 int main(int argc, char *argv[])
 {

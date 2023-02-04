@@ -10,9 +10,13 @@ Logic::Logic(QObject *parent) : QObject(parent)
 
     connect(discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
             this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
-
-    // Start a discovery
     discoveryAgent->start(QBluetoothDeviceDiscoveryAgent::ClassicMethod);
+#elif defined Q_OS_IOS
+//    discoveryAgent = new QBluetoothDeviceDiscoveryAgent (this);
+//    discoveryAgent->setLowEnergyDiscoveryTimeout(5000);
+//    connect(discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
+//            this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
+//    discoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 #endif
 
 }
@@ -24,9 +28,17 @@ Logic::~Logic()
 
 void Logic::deviceDiscovered(const QBluetoothDeviceInfo& device)
 {
+#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
     addresses.append(device.address().toString());
     devices.append(device.address().toString() + " " + device.name());
     emit deviceFound();
+#elif defined Q_OS_IOS
+//    if (device.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration) {
+//        addresses.append(device.address().toString());
+//        devices.append(device.address().toString() + " " + device.name());
+//        emit deviceFound();
+//    }
+#endif
 }
 
 QString Logic::getLastConnectedBtDevice()
@@ -34,7 +46,7 @@ QString Logic::getLastConnectedBtDevice()
     const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 #ifdef Q_OS_WINDOWS
     QSettings settings(AppDataLocation + "\\settings.ini", QSettings::IniFormat);
-#elif defined Q_OS_ANDROID
+#elif defined Q_OS_ANDROID || defined Q_OS_IOS
     QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
     QSettings settings(path + "/settings", QSettings::NativeFormat);
 #elif defined Q_OS_LINUX
@@ -49,7 +61,7 @@ void Logic::setLastConnectedBtDevice(const QString &value)
     const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 #ifdef Q_OS_WINDOWS
     QSettings settings(AppDataLocation + "\\settings.ini", QSettings::IniFormat);
-#elif defined Q_OS_ANDROID
+#elif defined Q_OS_ANDROID || defined Q_OS_IOS
     QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
     QSettings settings(path + "/settings", QSettings::NativeFormat);
 #elif defined Q_OS_LINUX
@@ -115,7 +127,7 @@ QStringList Logic::getBluetoothDevices()
     }
 #endif
 
-#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
+#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID) || defined Q_OS_IOS
     addresses = this->addresses;
     result = devices;
     //emit deviceConnected();
@@ -146,7 +158,7 @@ QStringList Logic::getBluetoothDevices()
 
 void Logic::connectToDevice(QString address)
 {
-#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID)
+#if defined  Q_OS_WINDOWS || (defined Q_OS_LINUX && !defined Q_OS_ANDROID) || defined Q_OS_IOS
     discoveryAgent->stop();
 #endif
 

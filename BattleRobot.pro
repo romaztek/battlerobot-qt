@@ -100,3 +100,14 @@ DISTFILES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 WINRT_ASSETS_PATH = $$PWD/uwp_assets/assets
+
+ios {
+    QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
+    QMAKE_ASSET_CATALOGS += ios/Assets.xcassets
+    ios_icon.files = $$files($$PWD/ios/AppIcon.appiconset/Icon*.png)
+    QMAKE_BUNDLE_DATA += ios_icon
+
+    QMAKE_IOS_DEPLOYMENT_TARGET = 9.0
+
+    QMAKE_IOS_TARGETED_DEVICE_FAMILY = 2
+}
