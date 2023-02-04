@@ -35,7 +35,9 @@ ApplicationWindow {
     x: (Screen.desktopAvailableWidth - width)/2
     y: (Screen.desktopAvailableHeight - height)/2
 
-    visibility: (Qt.platform.os == "android" || Qt.platform.os == "winrt" ? Window.FullScreen : Window.AutomaticVisibility )
+    visibility: (Qt.platform.os == "android" ? Window.FullScreen :
+                                               Qt.platform.os == "winrt" ? Window.Maximized :
+                                                                           Window.AutomaticVisibility)
 
     Component.onCompleted: {
         if(Qt.platform.os == "android" || Qt.platform.os == "linux") {

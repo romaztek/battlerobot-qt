@@ -1,3 +1,16 @@
+### MSVC
+BattleRobot.vcxproj*
+.qmake*
+BattleRobot_resource.rc
+Package.appxmanifest
+debug
+release
+
+### appx sign
+release.appx
+romashka.cer
+romashka.pvk
+
 ### Qt ###
 # C++ objects and libs
 *.slo
