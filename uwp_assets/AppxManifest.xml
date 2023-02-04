@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:mobile="http://schemas.microsoft.com/appx/manifest/mobile/windows10"
+  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
+  IgnorableNamespaces="uap uap3 mp mobile iot">
+
+  <Identity
+    Name="bf4e448e-11f3-414d-944b-a7a0a97bf050"
+    Publisher="CN=romashka"
+    Version="1.0.0.0"
+    ProcessorArchitecture="x86" />
+
+  <mp:PhoneIdentity PhoneProductId="bf4e448e-11f3-414d-944b-a7a0a97bf050" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>BattleRobot</DisplayName>
+    <PublisherDisplayName>Default publisher display name</PublisherDisplayName>
+    <Logo>assets/logo_store.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal"
+      MinVersion="10.0.19041.0"
+      MaxVersionTested="10.0.19041.0" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.0.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="BattleRobot.exe"
+      EntryPoint="BattleRobot.App">
+      <uap:VisualElements
+        DisplayName="BattleRobot"
+        Description="Default package description"
+        BackgroundColor="#000000"
+        Square150x150Logo="assets/logo_150x150.png"
+        Square44x44Logo="assets/logo_44x44.png">
+
+        <uap:SplashScreen Image="assets/logo_620x300.png" BackgroundColor="#000000" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <Capability Name="internetClientServer" />
+    <Capability Name="privateNetworkClientServer" />
+    <DeviceCapability Name="bluetooth.genericAttributeProfile" />
+    <DeviceCapability Name="bluetooth.rfcomm" />
+  </Capabilities>
+</Package>

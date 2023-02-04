@@ -98,3 +98,5 @@ DISTFILES += \
 	android/res/values/themes.xml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+WINRT_ASSETS_PATH = $$PWD/uwp_assets/assets

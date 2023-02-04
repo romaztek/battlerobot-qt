@@ -2,7 +2,10 @@ rem "C:\Program Files (x86)\Windows Kits\10\bin\10.0.16299.0\x86\makecert.exe" /
 
 rem "C:\Program Files (x86)\Windows Kits\10\bin\10.0.16299.0\x86\Pvk2Pfx" /pvk romashka.pvk /pi Aa123456 /spc romashka.cer /pfx romashka.pfx
 
-"C:\Program Files (x86)\Windows Kits\10\bin\10.0.16299.0\x86\makeappx.exe" pack /d ..\battlerobot-qt-uwp_release\release /p release.appx
+xcopy uwp_assets\assets ..\battlerobot-qt-uwp_release\release\assets /sy
+xcopy uwp_assets\AppxManifest.xml ..\battlerobot-qt-uwp_release\release\ /sy
+
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.16299.0\x86\makeappx.exe" pack /d ..\battlerobot-qt-uwp_release\release /p release.appx /o
 "C:\Program Files (x86)\Windows Kits\10\bin\10.0.16299.0\x86\SignTool" sign /f romashka.pfx /p Aa123456 /fd sha256 release.appx
 
 timeout 10
