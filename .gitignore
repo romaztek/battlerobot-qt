@@ -5,6 +5,7 @@ BattleRobot_resource.rc
 Package.appxmanifest
 debug
 release
+*.appx
 
 ### appx sign
 release.appx
