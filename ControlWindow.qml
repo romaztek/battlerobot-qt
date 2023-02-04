@@ -436,12 +436,13 @@ Rectangle {
 
                 property real spacing: 5
                 property real elementWidth: (width - spacing)/2
-                property real elementHeight: (height - spacing)/2
+                property real topElementHeight: (height - spacing)/3*2
+                property real bottomElementHeight: (height - spacing)/3
 
                 MoveButton {
                     id: moveButtonLeft
                     width: moveButtons.elementWidth
-                    height: moveButtons.elementHeight
+                    height: moveButtons.topElementHeight
                     anchors.top: parent.top
 
                     text: qsTr("LEFT")
@@ -459,7 +460,7 @@ Rectangle {
                 MoveButton {
                     id: moveButtonRight
                     width: moveButtons.elementWidth
-                    height: moveButtons.elementHeight
+                    height: moveButtons.topElementHeight
                     anchors.left: moveButtonLeft.right
                     anchors.leftMargin: 5
                     anchors.top: parent.top
@@ -479,12 +480,12 @@ Rectangle {
                 MoveButton {
                     id: driftButtonLeft
                     width: moveButtons.elementWidth
-                    height: moveButtons.elementHeight
+                    height: moveButtons.bottomElementHeight
                     anchors.top:  moveButtonLeft.bottom
                     anchors.topMargin: 5
                     anchors.bottom: parent.bottom
 
-                    text: qsTr("LEFT") + " " + qsTr("DRIFT")
+                    text: qsTr("LEFT")
                     image: "qrc:/images/car_icon.png"
                     onPressed: {
                         currentIntensity = ControlWindow.SteeringIntensity.Drift
@@ -499,14 +500,14 @@ Rectangle {
                 MoveButton {
                     id: driftButtonRight
                     width: moveButtons.elementWidth
-                    height: moveButtons.elementHeight
+                    height: moveButtons.bottomElementHeight
                     anchors.left: driftButtonLeft.right
                     anchors.leftMargin: 5
                     anchors.top:  moveButtonRight.bottom
                     anchors.topMargin: 5
                     anchors.bottom: parent.bottom
 
-                    text: qsTr("RIGHT") + " " + qsTr("DRIFT")
+                    text: qsTr("RIGHT")
                     image: "qrc:/images/car_icon.png"
                     mirror: true
                     onPressed: {

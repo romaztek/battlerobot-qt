@@ -11,6 +11,10 @@ Rectangle {
     visible: false
     enabled: false
 
+    MouseArea {
+        anchors.fill: parent
+    }
+
     function show() {
         settingsW.visible = true
         settingsW.enabled = true
@@ -34,7 +38,7 @@ Rectangle {
             id: settingsText
             Layout.fillWidth: true
             Layout.fillHeight: true
-            font.pointSize: 11
+            font.pointSize: 14
             x: 5
             verticalAlignment: Qt.AlignVCenter
             text: qsTr("Settings")
@@ -42,6 +46,8 @@ Rectangle {
 
         MyIconButton {
             id: saveButton
+            visible: false
+            enabled: false
             Layout.minimumWidth: 50
             Layout.fillHeight: true
             imageSource: "qrc:/images/save_icon.png"
@@ -69,9 +75,10 @@ Rectangle {
     Line {
         id: sepLine
         anchors.top: topMenu.bottom
-        anchors.topMargin: 5
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 5
         color: "black"
-        width: parent.width
         height: 2
     }
 
@@ -84,7 +91,98 @@ Rectangle {
         anchors.margins: 5
         anchors.topMargin: 0
 
+        Text {
+            id: speedText
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.margins: 5
+            height: 50
+            font.pointSize: 14
+            text: qsTr("Speed")
+            verticalAlignment: Qt.AlignVCenter
+        }
 
+        Slider {
+            id: speedSlider
+            anchors.left: speedText.right
+            anchors.top: parent.top
+            anchors.right: speedValueText.left
+            anchors.margins: 5
+            height: 50
+            value: 11
+            from: 1
+            to: 11
+            stepSize: 1
+            onValueChanged: {
+                var cmd
+                switch(value) {
+                case 1:
+                    cmd = 'z'
+                    break
+                case 2:
+                    cmd = 'x'
+                    break
+                case 3:
+                    cmd = 'c'
+                    break
+                case 4:
+                    cmd = 'v'
+                    break
+                case 5:
+                    cmd = 'b'
+                    break
+                case 6:
+                    cmd = 'n'
+                    break
+                case 7:
+                    cmd = 'm'
+                    break
+                case 8:
+                    cmd = '<'
+                    break
+                case 9:
+                    cmd = '>'
+                    break
+                case 10:
+                    cmd = '/'
+                    break
+                case 11:
+                    cmd = '='
+                    break
+                default:
+                    cmd = '='
+                }
+                controlWindow.print(value.toString() + ": " + cmd)
+                logic.send(cmd)
+            }
+        }
+
+        Text {
+            id: speedValueText
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins: 5
+            width: 40
+            height: 50
+            font.pointSize: 14
+            text: (35 + speedSlider.value*20).toString()
+            verticalAlignment: Qt.AlignVCenter
+            horizontalAlignment: Qt.AlignHCenter
+        }
+    }
+
+
+    Text {
+        text: "2023 (c) Roman Kartashev " + "\nSource: " + "https://github.com/romaztek/battlerobot-qt"
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: 5
+        verticalAlignment: Qt.AlignVCenter
+        horizontalAlignment: Qt.AlignHCenter
+        height: 40
+        font.pointSize: 12
+        onLinkActivated: Qt.openUrlExternally("https://github.com/romaztek/battlerobot-qt")
     }
 
 }

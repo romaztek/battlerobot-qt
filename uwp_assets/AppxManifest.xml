@@ -12,7 +12,7 @@
   <Identity
     Name="bf4e448e-11f3-414d-944b-a7a0a97bf050"
     Publisher="CN=romashka"
-    Version="1.0.0.0"
+    Version="5.1.0.0"
     ProcessorArchitecture="x86" />
 
   <mp:PhoneIdentity PhoneProductId="bf4e448e-11f3-414d-944b-a7a0a97bf050" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
