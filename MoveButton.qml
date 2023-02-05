@@ -1,5 +1,5 @@
-import QtQuick 2.12
-import QtQuick.Layouts 1.12
+import QtQuick 2.7
+import QtQuick.Layouts 1.3
 
 Rectangle {
     id: btn
@@ -73,7 +73,7 @@ Rectangle {
         mouseEnabled: true
         maximumTouchPoints: 2
         anchors.fill: parent
-        enabled: currentControlType === ControlWindow.ControlType.Touch
+        enabled: currentControlType === controlType.touch
 
         onPressed: {
             btn.pressed()

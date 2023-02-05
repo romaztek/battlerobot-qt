@@ -9,6 +9,7 @@ release
 
 ### ios
 .DS_Store
+BattleRobot.xcodeproj/*
 
 ### appx sign
 release.appx

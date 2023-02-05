@@ -200,9 +200,9 @@ void Logic::connectToDevice(QString address)
         case QBluetoothSocket::OperationError:
             emit deviceError(tr("Operation Error"));
             break;
-        case QBluetoothSocket::RemoteHostClosedError:
-            emit deviceError(tr("Remote Host Closed"));
-            break;
+//        case QBluetoothSocket::RemoteHostClosedError:
+//            emit deviceError(tr("Remote Host Closed"));
+//            break;
         case QBluetoothSocket::NoSocketError:
             emit deviceError(tr("No Socket Error"));
             break;
@@ -225,8 +225,12 @@ QString Logic::getGamepadName(QVariant deviceId)
     //    QList<int> gamepadIDs = QGamepadManager::instance()->connectedGamepads();
     //    qDebug().noquote() << "gamepad ID:" << gamepadIDs.at(0);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
     qDebug().noquote() << "gamepad name:" << QGamepadManager::instance()->gamepadName(deviceId.toInt());
     return QGamepadManager::instance()->gamepadName(deviceId.toInt());
+#else
+    return QString("");
+#endif
 }
 
 bool Logic::hasTouchScreen()

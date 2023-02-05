@@ -1,7 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
-import QtQuick.Shapes 1.12
+import QtQuick 2.7
+import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
 
 import ru.romanlenz.logic 1.0
 
@@ -278,7 +277,7 @@ Rectangle {
         Behavior on opacity {
             OpacityAnimator {
                 duration: 250
-                onFinished: {
+                onStopped: {
                     if(connectProgressWindow.opacity == 0) {
                         connectProgressWindow.enabled = false
                         connectProgressWindow.visible = false
@@ -336,7 +335,7 @@ Rectangle {
         Behavior on opacity {
             OpacityAnimator {
                 duration: 250
-                onFinished: {
+                onStopped: {
                     if(connectErrorWindow.opacity == 0) {
                         connectErrorWindow.enabled = false
                         connectErrorWindow.visible = false

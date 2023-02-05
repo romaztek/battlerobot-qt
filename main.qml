@@ -1,7 +1,7 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Window 2.12
-import Qt.labs.settings 1.1
+import QtQuick 2.7
+import QtQuick.Controls 2.2
+import QtQuick.Window 2.3
+import Qt.labs.settings 1.0
 
 import ru.romanlenz.logic 1.0
 
@@ -31,6 +31,22 @@ ApplicationWindow {
     property string forwardCommand: "2"
     property string backwardCommand: "8"
     property string stopCommand: "5"
+
+    Item {
+        id: controlType
+        property int none: 0
+        property int touch: 1
+        property int gamepad: 1
+    }
+
+    Item {
+        id: steeringIntensity
+        property int none: 0
+        property int low: 1
+        property int normal: 2
+        property int high: 3
+        property int drift: 4
+    }
 
     x: (Screen.desktopAvailableWidth - width)/2
     y: (Screen.desktopAvailableHeight - height)/2

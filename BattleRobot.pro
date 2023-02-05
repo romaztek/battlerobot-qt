@@ -102,12 +102,28 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 WINRT_ASSETS_PATH = $$PWD/uwp_assets/assets
 
 ios {
-    QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
-    QMAKE_ASSET_CATALOGS += ios/Assets.xcassets
-    ios_icon.files = $$files($$PWD/ios/AppIcon.appiconset/Icon*.png)
-    QMAKE_BUNDLE_DATA += ios_icon
+QMAKE_INFO_PLIST = $$PWD/ios/Info.plist
+QMAKE_ASSET_CATALOGS += ios/Assets.xcassets
+ios_icon.files = $$files($$PWD/ios/AppIcon.appiconset/Icon*.png)
+QMAKE_BUNDLE_DATA += ios_icon
 
-    QMAKE_IOS_DEPLOYMENT_TARGET = 9.0
+QMAKE_IOS_DEPLOYMENT_TARGET = 8.0
 
-    QMAKE_IOS_TARGETED_DEVICE_FAMILY = 2
+QMAKE_APPLE_TARGETED_DEVICE_FAMILY = 1,2
+
+QMAKE_TARGET_BUNDLE_PREFIX = ru.romankartashev
+QMAKE_BUNDLE = BattleRobot
+
+MY_BUNDLE_ID.name = PRODUCT_BUNDLE_IDENTIFIER
+MY_BUNDLE_ID.value = ru.romankartashev.BattleRobot
+QMAKE_MAC_XCODE_SETTINGS += MY_BUNDLE_ID
+
+MY_BUNDLE_VER.name = CURRENT_PROJECT_VERSION
+MY_BUNDLE_VER.value = 1.0
+QMAKE_MAC_XCODE_SETTINGS += MY_BUNDLE_VER
+
+#CONFIG -= simulator iphonesimulator
+#CONFIG += iphoneos
+#CONFIG += device
+#CONFIG += release
 }

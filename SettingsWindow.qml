@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
+import QtQuick 2.7
+import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
 
 Rectangle {
     id: settingsW
@@ -152,7 +152,7 @@ Rectangle {
                 default:
                     cmd = '='
                 }
-                controlWindow.print(value.toString() + ": " + cmd)
+                controlWindow.myprint(value.toString() + ": " + cmd)
                 logic.send(cmd)
             }
         }
