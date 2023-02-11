@@ -1,16 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>ControlWindow.qml</file>
-        <file>ConnectWindow.qml</file>
-        <file>MyIconButton.qml</file>
-        <file>Line.qml</file>
-        <file>LoadingCircleIndicator.qml</file>
-        <file>MoveButton.qml</file>
-        <file>MyIconLabel.qml</file>
-        <file>MyIconRadioButtonLabel.qml</file>
-        <file>QuitDialog.qml</file>
-        <file>SettingsWindow.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/ControlWindow.qml</file>
+        <file>qml/ConnectWindow.qml</file>
+        <file>qml/MyIconButton.qml</file>
+        <file>qml/Line.qml</file>
+        <file>qml/LoadingCircleIndicator.qml</file>
+        <file>qml/MoveButton.qml</file>
+        <file>qml/MyIconLabel.qml</file>
+        <file>qml/MyIconRadioButtonLabel.qml</file>
+        <file>qml/QuitDialog.qml</file>
+        <file>qml/SettingsWindow.qml</file>
     </qresource>
     <qresource prefix="/i18n">
         <file>BattleRobot_ru_RU.qm</file>
@@ -38,4 +38,5 @@
         <file alias="save_icon.png">images/save_icon.png</file>
         <file alias="back_icon.png">images/back_icon.png</file>
     </qresource>
+    <qresource prefix="/qml/enums"/>
 </RCC>

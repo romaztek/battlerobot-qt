@@ -32,8 +32,9 @@ endif()
 set(TS_FILES BattleRobot_ru_RU.ts)
 
 set(PROJECT_SOURCES
-    main.cpp
-    logic.cpp
+    src/main.cpp
+    src/logic.cpp
+    src/enums.cpp
     qml.qrc
     ${TS_FILES}
     )
@@ -78,7 +79,7 @@ target_link_libraries(BattleRobot
 endif()
 
 set_target_properties(BattleRobot PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+    MACOSX_BUNDLE_GUI_IDENTIFIER battlerobot.romankartashev.ru
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE

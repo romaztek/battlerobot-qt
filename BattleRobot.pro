@@ -1,4 +1,4 @@
-QT += quick bluetooth gamepad
+QT += qml quick bluetooth gamepad
 
 CONFIG += c++11
 
@@ -18,11 +18,13 @@ TARGET = BattleRobot
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-	logic.h
+        src/enums.h \
+        src/logic.h
 
 SOURCES += \
-        logic.cpp \
-        main.cpp
+        src/enums.cpp \
+        src/logic.cpp \
+        src/main.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,17 +32,17 @@ TRANSLATIONS += \
     BattleRobot_ru_RU.ts
 
 lupdate_only{
-SOURCES = main.qml \
-	ControlWindow.qml \
-	ConnectWindow.qml \
-	Line.qml \
-	LoadingCircleIndicator.qml \
-	MoveButton.qml \
-	MyIconButton.qml \
-	MyIconLabel.qml \
-	MyIconRadioButtonLabel.qml \
-        QuitDialog.qml.qml \
-        SettingsWindow.qml
+SOURCES = qml/main.qml \
+        qml/ControlWindow.qml \
+        qml/ConnectWindow.qml \
+        qml/Line.qml \
+        qml/LoadingCircleIndicator.qml \
+        qml/MoveButton.qml \
+        qml/MyIconButton.qml \
+        qml/MyIconLabel.qml \
+        qml/MyIconRadioButtonLabel.qml \
+        qml/QuitDialog.qml.qml \
+        qml/SettingsWindow.qml
 }
 
 CONFIG(debug, debug|release) {
@@ -53,7 +55,7 @@ CONFIG(release, debug|release) {
 }
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+QML_IMPORT_PATH = $$PWD/qml
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
@@ -70,6 +72,19 @@ android {
 win32:RC_ICONS += app_icon.ico
 
 win32:VERSION = 0.0.4
+
+DISTFILES += qml/main.qml \
+        qml/ControlWindow.qml \
+        qml/ConnectWindow.qml \
+        qml/Line.qml \
+        qml/LoadingCircleIndicator.qml \
+        qml/MoveButton.qml \
+        qml/MyIconButton.qml \
+        qml/MyIconLabel.qml \
+        qml/MyIconRadioButtonLabel.qml \
+        qml/QuitDialog.qml.qml \
+        qml/SettingsWindow.qml \
+        qml/SteeringIntensity.qml
 
 DISTFILES += \
 	android/AndroidManifest.xml \
