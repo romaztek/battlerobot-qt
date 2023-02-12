@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setOrganizationName("romankartashev");
     QCoreApplication::setOrganizationDomain("romankartashev.ru");
-    QCoreApplication::setApplicationName("battlerobot");
+    QCoreApplication::setApplicationName("BattleRobot");
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
