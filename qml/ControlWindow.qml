@@ -434,7 +434,9 @@ Rectangle {
                     anchors.top: parent.top
 
                     text: qsTr("LEFT")
-                    image: "qrc:/images/arrow_icon.png"
+                    image: "qrc:/images/arrow_left_icon.png"
+                    touchEnabled: currentControlType === ControlType.TOUCH
+
                     onPressed: {
                         currentIntensity = SteeringIntensity.HIGH
                         leftMovement()
@@ -454,8 +456,9 @@ Rectangle {
                     anchors.top: parent.top
 
                     text: qsTr("RIGHT")
-                    image: "qrc:/images/arrow_icon.png"
-                    mirror: true
+                    image: "qrc:/images/arrow_right_icon.png"
+                    touchEnabled: currentControlType === ControlType.TOUCH
+
                     onPressed: {
                         currentIntensity = SteeringIntensity.HIGH
                         rightMovement()
@@ -472,9 +475,12 @@ Rectangle {
                     anchors.top:  moveButtonLeft.bottom
                     anchors.topMargin: 5
                     anchors.bottom: parent.bottom
+                    touchEnabled: currentControlType === ControlType.TOUCH
 
                     text: qsTr("LEFT")
-                    image: "qrc:/images/car_icon.png"
+                    image: "qrc:/images/car_left_icon.png"
+                    enabled: currentControlType === ControlType.TOUCH
+
                     onPressed: {
                         currentIntensity = SteeringIntensity.TURN
                         leftMovement()
@@ -496,8 +502,9 @@ Rectangle {
                     anchors.bottom: parent.bottom
 
                     text: qsTr("RIGHT")
-                    image: "qrc:/images/car_icon.png"
-                    mirror: true
+                    image: "qrc:/images/car_right_icon.png"
+                    touchEnabled: currentControlType === ControlType.TOUCH
+
                     onPressed: {
                         currentIntensity = SteeringIntensity.TURN
                         rightMovement()
@@ -522,6 +529,8 @@ Rectangle {
                     Layout.fillHeight: true
                     text: qsTr("FORWARD")
                     image: "qrc:/images/gaz_icon.png"
+                    touchEnabled: currentControlType === ControlType.TOUCH
+
                     onPressed: {
                         logic.send(forwardCommand)
                         myprint(qsTr("FORWARD"))
@@ -535,8 +544,9 @@ Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     text: qsTr("BACKWARD")
-                    image: "qrc:/images/gaz_icon.png"
-                    rotation: 180
+                    image: "qrc:/images/break_icon.png"
+                    touchEnabled: currentControlType === ControlType.TOUCH
+
                     onPressed: {
                         logic.send(backwardCommand)
                         myprint(qsTr("BACKWARD"))

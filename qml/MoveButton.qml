@@ -15,6 +15,7 @@ Rectangle {
     property alias image: btnImage.source
     property alias mirror: btnImage.mirror
     property alias rotation: btnImage.rotation
+    property alias touchEnabled: ma.enabled
 
     signal pressed()
     signal released()
@@ -75,7 +76,6 @@ Rectangle {
         mouseEnabled: true
         maximumTouchPoints: 2
         anchors.fill: parent
-        enabled: currentControlType === ControlType.TOUCH
 
         onPressed: {
             btn.pressed()
