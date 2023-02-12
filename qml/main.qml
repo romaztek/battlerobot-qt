@@ -54,25 +54,23 @@ ApplicationWindow {
                                                Qt.platform.os == "winrt" ? Window.Maximized :
                                                                            Window.AutomaticVisibility)
     Component.onCompleted: {
-        if(Qt.platform.os == "android" || Qt.platform.os == "linux") {
-            createConnectWindow()
-            connectWindow.listClear()
+        createConnectWindow()
+        connectWindow.listClear()
 
-            var devices = logic.getBluetoothDevices().toString()
+        var devices = logic.getBluetoothDevices().toString()
 
-            var devices_list = devices.split(',')
+        var devices_list = devices.split(',')
 
-            for(var i = 0; i < devices_list.length; i++) {
-                console.log(devices_list[i])
+        for(var i = 0; i < devices_list.length; i++) {
+            console.log(devices_list[i])
 
-                if(devices_list[i].length === 0)
-                    continue
+            if(devices_list[i].length === 0)
+                continue
 
-                var device_address = devices_list[i].split(' ')[0]
-                var device_name = devices_list[i].replace(device_address + ' ', '')
+            var device_address = devices_list[i].split(' ')[0]
+            var device_name = devices_list[i].replace(device_address + ' ', '')
 
-                connectWindow.listAppend(device_name, device_address)
-            }
+            connectWindow.listAppend(device_name, device_address)
         }
     }
 

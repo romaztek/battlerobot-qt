@@ -46,7 +46,7 @@ QString Logic::getLastConnectedBtDevice()
     const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 #ifdef Q_OS_WINDOWS
     QSettings settings(AppDataLocation + "\\settings.ini", QSettings::IniFormat);
-#elif defined Q_OS_ANDROID || defined Q_OS_IOS
+#elif defined Q_OS_ANDROID || defined Q_OS_IOS || defined Q_OS_MACOS
     QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
     QSettings settings(path + "/settings", QSettings::NativeFormat);
 #elif defined Q_OS_LINUX
@@ -61,7 +61,7 @@ void Logic::setLastConnectedBtDevice(const QString &value)
     const QString AppDataLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 #ifdef Q_OS_WINDOWS
     QSettings settings(AppDataLocation + "\\settings.ini", QSettings::IniFormat);
-#elif defined Q_OS_ANDROID || defined Q_OS_IOS
+#elif defined Q_OS_ANDROID || defined Q_OS_IOS || defined Q_OS_MACOS
     QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
     QSettings settings(path + "/settings", QSettings::NativeFormat);
 #elif defined Q_OS_LINUX
