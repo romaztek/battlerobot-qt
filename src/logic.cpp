@@ -12,11 +12,11 @@ Logic::Logic(QObject *parent) : QObject(parent)
             this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
     discoveryAgent->start(QBluetoothDeviceDiscoveryAgent::ClassicMethod);
 #elif defined Q_OS_IOS
-//    discoveryAgent = new QBluetoothDeviceDiscoveryAgent (this);
-//    discoveryAgent->setLowEnergyDiscoveryTimeout(5000);
-//    connect(discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
-//            this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
-//    discoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
+    //    discoveryAgent = new QBluetoothDeviceDiscoveryAgent (this);
+    //    discoveryAgent->setLowEnergyDiscoveryTimeout(5000);
+    //    connect(discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
+    //            this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
+    //    discoveryAgent->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 #endif
 
 }
@@ -33,11 +33,11 @@ void Logic::deviceDiscovered(const QBluetoothDeviceInfo& device)
     devices.append(device.address().toString() + " " + device.name());
     emit deviceFound();
 #elif defined Q_OS_IOS
-//    if (device.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration) {
-//        addresses.append(device.address().toString());
-//        devices.append(device.address().toString() + " " + device.name());
-//        emit deviceFound();
-//    }
+    //    if (device.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration) {
+    //        addresses.append(device.address().toString());
+    //        devices.append(device.address().toString() + " " + device.name());
+    //        emit deviceFound();
+    //    }
 #endif
 }
 
@@ -205,9 +205,11 @@ void Logic::connectToDevice(QString address)
         case QBluetoothSocket::OperationError:
             emit deviceError(tr("Operation Error"));
             break;
-//        case QBluetoothSocket::RemoteHostClosedError:
-//            emit deviceError(tr("Remote Host Closed"));
-//            break;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+        case QBluetoothSocket::RemoteHostClosedError:
+            emit deviceError(tr("Remote Host Closed"));
+            break;
+#endif
         case QBluetoothSocket::NoSocketError:
             emit deviceError(tr("No Socket Error"));
             break;

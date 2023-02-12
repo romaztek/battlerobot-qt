@@ -8,21 +8,9 @@ Rectangle {
     border.color: "black"
     border.width: 2
     anchors.fill: parent
-    visible: false
-    enabled: false
 
     MouseArea {
         anchors.fill: parent
-    }
-
-    function show() {
-        settingsW.visible = true
-        settingsW.enabled = true
-    }
-
-    function hide() {
-        settingsW.visible = false
-        settingsW.enabled = false
     }
 
     RowLayout {
@@ -67,7 +55,7 @@ Rectangle {
             onPressed: color = Qt.darker("red", 1.1)
             onReleased: color = Qt.lighter("red", 1.3)
             onClicked: {
-                hide()
+                destroySettingsWindow()
             }
         }
     }

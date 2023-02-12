@@ -33,6 +33,13 @@ ApplicationWindow {
     property string backwardCommand: "8"
     property string stopCommand: "5"
 
+    property var connectWindow
+    property var controlWindow
+    property var settingsWindow
+
+    property string connectedDeviceName
+    property string connectedDeviceAddress
+
     Item {
         id: controlType
         property int none: 0
@@ -46,9 +53,9 @@ ApplicationWindow {
     visibility: (Qt.platform.os == "android" ? Window.FullScreen :
                                                Qt.platform.os == "winrt" ? Window.Maximized :
                                                                            Window.AutomaticVisibility)
-
     Component.onCompleted: {
         if(Qt.platform.os == "android" || Qt.platform.os == "linux") {
+            createConnectWindow()
             connectWindow.listClear()
 
             var devices = logic.getBluetoothDevices().toString()
@@ -76,56 +83,69 @@ ApplicationWindow {
     Connections {
         target: logic
         function onDeviceConnected() {
-            controlWindow.setDeviceName(connectWindow.connectedDeviceName)
-            connectWindow.hideConnectProgressWindow()
-            connectWindow.hide()
-            controlWindow.show()
-        }
-        function onDeviceFound() {
-            connectWindow.listClear()
-
-            var devices = logic.getBluetoothDevices().toString()
-
-            var devices_list = devices.split(',')
-
-            for(var i = 0; i < devices_list.length; i++) {
-                console.log(devices_list[i])
-
-                if(devices_list[i].length === 0)
-                    continue
-
-                var device_address = devices_list[i].split(' ')[0]
-                var device_name = devices_list[i].replace(device_address + ' ', '')
-
-                connectWindow.listAppend(device_name, device_address)
-            }
-        }
-        function onDeviceDisconnected() {
-            controlWindow.setDeviceName(qsTr("Reconnect?"))
-        }
-        function onDeviceError(err) {
-            console.log(err);
-            connectWindow.hideConnectProgressWindow()
-            connectWindow.connectedErrorString = err
-            connectWindow.showErrorWindow()
-
+            destroyConnectWindow()
+            createControlWindow()
         }
     }
 
-    ConnectWindow {
-        id: connectWindow
-        anchors.fill: parent
-    }
-    
-    ControlWindow {
-        id: controlWindow
-        anchors.fill: parent
+    function createConnectWindow() {
+        connectWindow = myConnectWindow.createObject(main, {"id": "connectWindow"});
     }
 
-    SettingsWindow {
-        id: settingsWindow
-        anchors.fill: parent
-        anchors.margins: 5
+    function destroyConnectWindow() {
+        connectWindow.destroy()
     }
+
+    function createControlWindow() {
+        controlWindow = myControlWindow.createObject(main, {"id": "controlWindow"});
+    }
+
+    function destroyControlWindow() {
+        controlWindow.destroy()
+    }
+
+    function recreateControlWindow() {
+        destroyControlWindow()
+        createControlWindow()
+    }
+
+    function createSettingsWindow() {
+        settingsWindow = mySettingsWindow.createObject(main, {"id": "settingsWindow"});
+    }
+
+    function destroySettingsWindow() {
+        settingsWindow.destroy()
+    }
+
+    Component {
+        id: myConnectWindow
+        ConnectWindow { }
+    }
+
+    Component {
+        id: myControlWindow
+        ControlWindow { }
+    }
+
+    Component {
+        id: mySettingsWindow
+        SettingsWindow { }
+    }
+
+    //    ConnectWindow {
+    //        id: connectWindow
+    //        anchors.fill: parent
+    //    }
+
+    //    ControlWindow {
+    //        id: controlWindow
+    //        anchors.fill: parent
+    //    }
+
+    //    SettingsWindow {
+    //        id: settingsWindow
+    //        anchors.fill: parent
+    //        anchors.margins: 5
+    //    }
 
 }

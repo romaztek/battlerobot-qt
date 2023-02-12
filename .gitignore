@@ -11,6 +11,11 @@ release
 .DS_Store
 BattleRobot.xcodeproj/*
 
+### android 
+android/.gradle/
+android/.idea/
+android/local.properties
+
 ### appx sign
 release.appx
 romashka.cer

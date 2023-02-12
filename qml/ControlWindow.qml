@@ -12,8 +12,6 @@ import ru.romankartashev.enums 1.0
 Rectangle {
     id: controlW
     anchors.fill: parent
-    visible: false
-    enabled: false
     focus: true
 
     color: backgroundColor
@@ -45,6 +43,18 @@ Rectangle {
             moveButtonForward.released()
         } else if(moveButtonBackward.isPressed) {
             moveButtonBackward.released()
+        }
+    }
+
+
+    Connections {
+        target: logic
+        function onDeviceConnected() {
+            setDeviceName(connectedDeviceName)
+        }
+
+        function onDeviceDisconnected() {
+            setDeviceName(qsTr("Reconnect?"))
         }
     }
 
@@ -230,16 +240,6 @@ Rectangle {
         }
     }
 
-    function show() {
-        controlW.visible = true
-        controlW.enabled = true
-    }
-
-    function hide() {
-        controlW.visible = false
-        controlW.enabled = false
-    }
-
     function setDeviceName(str) {
         currentDeviceTop.text = str
     }
@@ -379,7 +379,7 @@ Rectangle {
             onPressed: color = "green"
             onReleased: color = Qt.lighter("green", 1.3)
             onClicked: {
-                settingsWindow.show()
+                createSettingsWindow()
             }
         }
 

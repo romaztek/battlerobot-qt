@@ -9,19 +9,7 @@ Rectangle {
     anchors.fill: parent
     color: backgroundColor
 
-    property string connectedDeviceName
-    property string connectedDeviceAddress
     property alias connectedErrorString: errorText.text
-
-    function show() {
-        cw.visible = true
-        cw.enabled = true
-    }
-
-    function hide() {
-        cw.visible = false
-        cw.enabled = false
-    }
 
     function showConnectProgressWindow() {
         connectProgressWindow.visible = true
@@ -53,6 +41,37 @@ Rectangle {
         btListModel.append({"name": device_name, "address": device_address })
     }
 
+    Connections {
+        target: logic
+        function onDeviceConnected() {
+            hideConnectProgressWindow()
+        }
+        function onDeviceFound() {
+            listClear()
+
+            var devices = logic.getBluetoothDevices().toString()
+            var devices_list = devices.split(',')
+
+            for(var i = 0; i < devices_list.length; i++) {
+                console.log(devices_list[i])
+
+                if(devices_list[i].length === 0)
+                    continue
+
+                var device_address = devices_list[i].split(' ')[0]
+                var device_name = devices_list[i].replace(device_address + ' ', '')
+
+                listAppend(device_name, device_address)
+            }
+        }
+        function onDeviceError(err) {
+            console.log(err);
+            hideConnectProgressWindow()
+            connectedErrorString = err
+            showErrorWindow()
+        }
+    }
+
     MyIconLabel {
         id: topText
         height: 50
@@ -74,8 +93,8 @@ Rectangle {
             imageSource: "qrc:/images/debug_icon.png"
 
             onClicked: {
-                controlWindow.show()
-                hide()
+                createControlWindow()
+                destroyConnectWindow()
             }
         }
     }
