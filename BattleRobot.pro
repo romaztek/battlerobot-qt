@@ -71,7 +71,7 @@ android {
 
 win32:RC_ICONS += app_icon.ico
 
-win32:VERSION = 0.0.4
+win32:VERSION = 6.0.0
 
 DISTFILES += qml/main.qml \
         qml/ControlWindow.qml \
@@ -134,7 +134,7 @@ MY_BUNDLE_ID.value = ru.romankartashev.BattleRobot
 QMAKE_MAC_XCODE_SETTINGS += MY_BUNDLE_ID
 
 MY_BUNDLE_VER.name = CURRENT_PROJECT_VERSION
-MY_BUNDLE_VER.value = 1.0
+MY_BUNDLE_VER.value = 6.0
 QMAKE_MAC_XCODE_SETTINGS += MY_BUNDLE_VER
 
 #CONFIG -= simulator iphonesimulator
